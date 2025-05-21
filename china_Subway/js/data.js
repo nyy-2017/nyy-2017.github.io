@@ -19,7 +19,13 @@ var SubwayCitiesList = [{
     keyword: "hongkong",
     name: "香港",
     citycode: "2912",
-}, {
+}, 
+{
+    keyword: "aomen",
+    name: "澳门",
+    citycode: "2911",
+}, 
+{
     keyword: "chengdu",
     name: "成都",
     citycode: "75",
@@ -79,7 +85,13 @@ var SubwayCitiesList = [{
     keyword: "zhengzhou",
     name: "郑州",
     citycode: "268",
-}, {
+}, 
+{
+    keyword: "luoyang",
+    name: "洛阳",
+    citycode: "153",
+}, 
+{
     keyword: "changsha",
     name: "长沙",
     citycode: "158",
@@ -119,7 +131,12 @@ var SubwayCitiesList = [{
     keyword: "nanning",
     name: "南宁",
     citycode: "261",
-}];
+},{
+    keyword: "shijiazhuang",
+    name: "石家庄",
+    citycode: "150",
+}
+];
 for (var i = 0; i < SubwayCitiesList.length; i++) {
     var { citycode, name } = SubwayCitiesList[i]
     $(`<option value="${citycode}">${name}</option>`).appendTo("select")
