@@ -639,6 +639,30 @@
   }
   .json-card em svg{width:11px;height:11px}
 
+  /* auto download states */
+  .dl-track{
+    position:absolute;left:0;right:0;bottom:0;height:2px;z-index:5;
+    background:rgba(255,255,255,.08);opacity:0;transition:opacity .3s;
+  }
+  .card.is-busy .dl-track,
+  .card.is-done .dl-track{opacity:1}
+  .dl-fill{
+    display:block;height:100%;width:100%;
+    transform:scaleX(0);transform-origin:0 50%;
+    background:linear-gradient(90deg,var(--c1),var(--c2));
+    transition:transform .25s linear;
+  }
+  .card.is-busy{cursor:progress}
+  .card.is-busy .go-label{color:#a8eeff}
+  .card.is-busy .go svg{animation:dlBob 1s ease-in-out infinite}
+  .card.is-done .dl-fill{background:linear-gradient(90deg,#27e0a1,var(--c2))}
+  .card.is-done .go-label{color:#6df3bf}
+  .card.is-done .go svg{transform:none}
+  @keyframes dlBob{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(3px)}
+  }
+
   /* ---------- about ---------- */
   .about{
     position:relative;z-index:2;
@@ -925,7 +949,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="chinaMapJsonData/jsonFile.zip" data-key="6">
+        <a class="card reveal" href="chinaMapJsonData/jsonFile.zip" download="chinaMapJsonData.zip" data-key="6" data-download>
           <div class="card-media json-media">
             <div class="json-card">
               <b>{ }</b>
@@ -937,13 +961,14 @@
             </div>
             <span class="tag"><i></i>数据 · 下载</span>
             <span class="glare"></span>
+            <span class="dl-track" aria-hidden="true"><span class="dl-fill"></span></span>
           </div>
           <div class="card-body">
             <div class="card-top"><span class="idx">RESOURCE 06</span><kbd>6</kbd></div>
             <h3>全国地图边界数据<small>/chinaMapJsonData</small></h3>
             <p>打包好的省市县三级地图 GeoJSON，最外层的 datas.json 就是全国边界，可直接喂给 ECharts、Leaflet 或 D3 画地图。</p>
             <div class="chips"><span>GeoJSON</span><span>ECharts</span><span>数据资源</span></div>
-            <span class="go">下载数据包
+            <span class="go"><span class="go-label">下载数据包</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
             </span>
           </div>
@@ -1196,7 +1221,101 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ---------------- 7. keyboard shortcuts ---------------- */
+  /* ---------------- 7. one-click dataset download ---------------- */
+  var dlCard = document.querySelector("[data-download]");
+  if (dlCard) {
+    var dlLabel = dlCard.querySelector(".go-label");
+    var dlFill = dlCard.querySelector(".dl-fill");
+    var dlUrl = dlCard.getAttribute("href");
+    var dlName = dlCard.getAttribute("download") || "chinaMapJsonData.zip";
+    var dlBusy = false;
+    var dlTimer = 0;
+
+    var dlState = function (cls) {
+      dlCard.classList.remove("is-busy", "is-done");
+      if (cls) dlCard.classList.add(cls);
+    };
+    var dlText = function (text) {
+      if (text) dlLabel.textContent = text;
+    };
+    var dlProgress = function (ratio) {
+      dlFill.style.transform = "scaleX(" + Math.min(Math.max(ratio, 0), 1) + ")";
+    };
+    var dlSave = function (blob) {
+      var objectUrl = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = objectUrl;
+      a.download = dlName;
+      a.style.display = "none";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 10000);
+    };
+
+    dlCard.addEventListener("click", function (e) {
+      if (dlBusy) { e.preventDefault(); return; }
+
+      var canStream = window.fetch && window.Blob && window.URL && URL.createObjectURL;
+      if (!canStream) return; // 老浏览器直接走 <a download> 原生下载
+
+      e.preventDefault();
+      dlBusy = true;
+      window.clearTimeout(dlTimer);
+      dlState("is-busy");
+      dlText("连接中…");
+      dlProgress(0);
+
+      window.fetch(dlUrl)
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          var total = Number(res.headers.get("content-length")) || 0;
+          if (!res.body || !total || typeof res.body.getReader !== "function") {
+            dlText("下载中…");
+            return res.blob();
+          }
+
+          var reader = res.body.getReader();
+          var chunks = [];
+          var received = 0;
+          return (function pump() {
+            return reader.read().then(function (chunk) {
+              if (chunk.done) return new Blob(chunks, { type: "application/zip" });
+              chunks.push(chunk.value);
+              received += chunk.value.length;
+              dlText("下载中 " + Math.round(Math.min(received / total, 1) * 100) + "%");
+              dlProgress(received / total);
+              return pump();
+            });
+          })();
+        })
+        .then(function (blob) {
+          dlSave(blob);
+          dlBusy = false;
+          dlState("is-done");
+          dlText("已开始下载");
+          dlProgress(1);
+          dlTimer = window.setTimeout(function () {
+            dlState(null);
+            dlText("再次下载");
+            dlProgress(0);
+          }, 4000);
+        })
+        .catch(function () {
+          // 网络或流式读取失败时，退回原生下载，保证一定能拿到文件
+          dlBusy = false;
+          dlState(null);
+          dlText("直连下载中…");
+          dlProgress(0);
+          window.setTimeout(function () {
+            window.location.href = dlUrl;
+            dlText("下载数据包");
+          }, 150);
+        });
+    });
+  }
+
+  /* ---------------- 8. keyboard shortcuts ---------------- */
   document.addEventListener("keydown", function (e) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     var tag = (e.target && e.target.tagName) || "";
@@ -1206,7 +1325,7 @@
       var card = document.querySelector('.card[data-key="' + e.key + '"]');
       if (card) {
         e.preventDefault();
-        window.location.href = card.getAttribute("href");
+        card.click();
       }
     }
     if (e.key === "g" || e.key === "G") {
@@ -1214,7 +1333,7 @@
     }
   });
 
-  /* ---------------- 8. seamless marquee ---------------- */
+  /* ---------------- 9. seamless marquee ---------------- */
   var track = document.getElementById("marquee");
   if (track && !reduceMotion) {
     track.innerHTML += track.innerHTML;
