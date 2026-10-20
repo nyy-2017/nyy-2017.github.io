@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06070d">
-<meta name="description" content="nyy-2017 的前端项目索引：全国地铁线路图、图片海报生成器、Leaflet 扇形覆盖、多页签后台模板，全部静态托管、点开即用。">
+<meta name="description" content="nyy-2017 的前端项目索引：全国地铁线路图、图片海报生成器、Leaflet 扇形覆盖、CSS 3D 照片墙、多页签后台模板与地图 JSON 数据包，全部静态托管、点开即用。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="项目索引 · nyy-2017">
-<meta property="og:description" content="四个可在线体验的前端实验项目，从地图可视化到图像合成。">
+<meta property="og:description" content="六个可在线体验的前端实验项目，从地图可视化到 CSS 3D 立体相册。">
 <title>项目索引 · nyy-2017</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M20 44V20l24 24V20' fill='none' stroke='%23070710' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
@@ -556,6 +556,89 @@
   }
   .mock-panels i:first-child{background:linear-gradient(90deg,rgba(124,92,255,.75),rgba(34,211,238,.55));height:6px}
 
+  /* mock cover for 3d cube */
+  .cube-media{
+    background:
+      radial-gradient(90% 90% at 50% 8%,rgba(124,92,255,.34),transparent 62%),
+      radial-gradient(80% 80% at 82% 92%,rgba(34,211,238,.18),transparent 60%),
+      #080911;
+  }
+  .cube-media::after{background:linear-gradient(180deg,rgba(6,7,13,0) 52%,rgba(6,7,13,.72) 84%,rgba(6,7,13,.95))}
+  .scene{
+    position:absolute;inset:0;display:grid;place-items:center;
+    perspective:760px;
+  }
+  .scene::before{
+    content:"";position:absolute;left:50%;top:72%;width:170px;height:34px;
+    transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%,rgba(124,92,255,.6),transparent 72%);
+    filter:blur(12px);
+  }
+  .cube{
+    --s:104px;
+    position:relative;width:var(--s);height:var(--s);
+    transform-style:preserve-3d;
+    animation:cubeSpin 20s linear infinite;
+  }
+  .cube i{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:inset 0 0 26px rgba(0,0,0,.4);
+  }
+  .cube i:nth-child(1){transform:translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(2){transform:rotateY(90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(3){transform:rotateY(-90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(4){transform:rotateX(90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(5){transform:rotateX(-90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(6){transform:rotateY(180deg) translateZ(calc(var(--s) / 2))}
+  .cube .cf1{background-image:url("3d-cubic-images-master/img/front.jpeg")}
+  .cube .cf2{background-image:url("3d-cubic-images-master/img/right.jpeg")}
+  .cube .cf3{background-image:url("3d-cubic-images-master/img/left.jpg")}
+  .cube .cf4{background-image:url("3d-cubic-images-master/img/lower.jpeg")}
+  .cube .cf5{background-image:url("3d-cubic-images-master/img/top.jpg")}
+  .cube .cf6{background-image:url("3d-cubic-images-master/img/after.jpeg")}
+  @keyframes cubeSpin{
+    from{transform:rotateX(-16deg) rotateY(0deg)}
+    to{transform:rotateX(-16deg) rotateY(360deg)}
+  }
+
+  /* mock cover for json dataset */
+  .json-media{
+    background:
+      repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 26px),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 26px),
+      radial-gradient(80% 90% at 22% 0%,rgba(34,211,238,.24),transparent 62%),
+      radial-gradient(80% 90% at 92% 100%,rgba(124,92,255,.3),transparent 62%),
+      #080911;
+  }
+  .json-card{
+    position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);
+    display:flex;flex-direction:column;align-items:center;gap:7px;
+    width:min(60%,240px);padding:16px 14px;border-radius:14px;
+    border:1px dashed rgba(255,255,255,.22);
+    background:rgba(8,10,18,.72);
+    box-shadow:0 24px 44px -24px rgba(0,0,0,.95);
+    transition:transform .6s var(--ease),border-color .4s;
+  }
+  .card:hover .json-card{transform:translate(-50%,-50%) scale(1.04);border-color:rgba(34,211,238,.5)}
+  .json-card b{
+    font-family:var(--mono);font-size:26px;line-height:1;letter-spacing:-.06em;
+    background:linear-gradient(120deg,#fff,#8fe3f5);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .json-card > span{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;
+    color:#8d95ae;text-transform:uppercase;text-align:center;
+  }
+  .json-card em{
+    display:inline-flex;align-items:center;gap:6px;margin-top:3px;padding:4px 10px;
+    border-radius:999px;border:1px solid rgba(34,211,238,.4);
+    background:rgba(34,211,238,.12);
+    font-style:normal;font-size:10px;color:#a8eeff;
+  }
+  .json-card em svg{width:11px;height:11px}
+
   /* ---------- about ---------- */
   .about{
     position:relative;z-index:2;
@@ -680,12 +763,12 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="pill"><span class="pulse"></span>04 个项目 · 全部在线运行</p>
+        <p class="pill"><span class="pulse"></span>06 个入口 · 全部即开即用</p>
         <h1>
           <span class="line"><span>把每个 Demo</span></span>
           <span class="line"><span>部署成可访问的<em>坐标</em></span></span>
         </h1>
-        <p class="lede">地图可视化、图像合成、后台模板……这里是我的前端实验收容所。没有后端，没有登录，挑一个入口直接开始体验。</p>
+        <p class="lede">地图可视化、图像合成、CSS 3D、后台模板……这里是我的前端实验收容所。没有后端，没有登录，挑一个入口直接开始体验。</p>
         <div class="cta">
           <a class="btn primary" href="#projects">
             浏览项目
@@ -697,8 +780,8 @@
           </a>
         </div>
         <ul class="facts">
-          <li><b>04</b><span>在线项目</span></li>
-          <li><b>09</b><span>技术栈</span></li>
+          <li><b>06</b><span>项目入口</span></li>
+          <li><b>15</b><span>技术栈</span></li>
           <li><b>0</b><span>本页依赖</span></li>
         </ul>
       </div>
@@ -707,12 +790,14 @@
         <div class="ring r1"></div>
         <div class="ring r2"></div>
         <div class="ring r3"></div>
-        <div class="core"><b>04</b><span>PROJECTS</span></div>
+        <div class="core"><b>06</b><span>PROJECTS</span></div>
         <div class="spinner">
           <span class="orb" style="--a:0deg"><span class="orb-i"><b>01</b>地铁线路</span></span>
-          <span class="orb" style="--a:90deg"><span class="orb-i"><b>02</b>海报合成</span></span>
-          <span class="orb" style="--a:180deg"><span class="orb-i"><b>03</b>扇形覆盖</span></span>
-          <span class="orb" style="--a:270deg"><span class="orb-i"><b>04</b>页签模板</span></span>
+          <span class="orb" style="--a:60deg"><span class="orb-i"><b>02</b>海报合成</span></span>
+          <span class="orb" style="--a:120deg"><span class="orb-i"><b>03</b>扇形覆盖</span></span>
+          <span class="orb" style="--a:180deg"><span class="orb-i"><b>04</b>立体相册</span></span>
+          <span class="orb" style="--a:240deg"><span class="orb-i"><b>05</b>页签模板</span></span>
+          <span class="orb" style="--a:300deg"><span class="orb-i"><b>06</b>地图数据</span></span>
         </div>
       </div>
     </div>
@@ -723,8 +808,8 @@
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track" id="marquee">
       <span>SVG 绘图</span><span>Canvas 合成</span><span>Leaflet 地图</span><span>Vue 3</span>
-      <span>Element Plus</span><span>jQuery</span><span>手势交互</span><span>响应式适配</span>
-      <span>GitHub Pages</span><span>零构建依赖</span>
+      <span>CSS 3D</span><span>Element Plus</span><span>jQuery</span><span>手势交互</span>
+      <span>GeoJSON</span><span>响应式适配</span><span>GitHub Pages</span><span>零构建依赖</span>
     </div>
   </div>
 
@@ -733,10 +818,10 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div>
-          <p class="eyebrow">Index / 04</p>
+          <p class="eyebrow">Index / 06</p>
           <h2>项目索引</h2>
         </div>
-        <p class="sec-desc">点击卡片进入对应目录。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd> 快速打开。</p>
+        <p class="sec-desc">点击卡片进入对应目录。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd> 快速打开。</p>
       </div>
 
       <div class="grid">
@@ -792,7 +877,29 @@
           </div>
         </a>
 
-        <a class="card reveal" href="dist/" data-key="4">
+        <a class="card reveal" href="3d-cubic-images-master/" data-key="4">
+          <div class="card-media cube-media">
+            <div class="scene">
+              <div class="cube">
+                <i class="cf1"></i><i class="cf2"></i><i class="cf3"></i>
+                <i class="cf4"></i><i class="cf5"></i><i class="cf6"></i>
+              </div>
+            </div>
+            <span class="tag"><i></i>CSS 3D · 相册</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
+            <h3>3D 立体照片墙<small>/3d-cubic-images-master</small></h3>
+            <p>六个 div 拼成一个正方体，靠 transform-style: preserve-3d 与关键帧自动翻面，整页没有一行 JavaScript。</p>
+            <div class="chips"><span>纯 CSS</span><span>3D Transform</span><span>关键帧动画</span></div>
+            <span class="go">进入项目
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="dist/" data-key="5">
           <div class="card-media">
             <div class="mock">
               <div class="mock-bar"><i></i><i></i><i></i></div>
@@ -808,12 +915,36 @@
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 05</span><kbd>5</kbd></div>
             <h3>多页签后台模板<small>/dist</small></h3>
             <p>Vue 3 + Element Plus 搭建的后台骨架：登录页、路由守卫、Vuex 状态与多页签布局，开箱即用。</p>
             <div class="chips"><span>Vue 3</span><span>Element Plus</span><span>Vue Router</span><span>Vuex</span></div>
             <span class="go">进入项目
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="chinaMapJsonData/jsonFile.zip" data-key="6">
+          <div class="card-media json-media">
+            <div class="json-card">
+              <b>{ }</b>
+              <span>GeoJSON · 省 / 市 / 县</span>
+              <em>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+                jsonFile.zip · 约 19 MB
+              </em>
+            </div>
+            <span class="tag"><i></i>数据 · 下载</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">RESOURCE 06</span><kbd>6</kbd></div>
+            <h3>全国地图边界数据<small>/chinaMapJsonData</small></h3>
+            <p>打包好的省市县三级地图 GeoJSON，最外层的 datas.json 就是全国边界，可直接喂给 ECharts、Leaflet 或 D3 画地图。</p>
+            <div class="chips"><span>GeoJSON</span><span>ECharts</span><span>数据资源</span></div>
+            <span class="go">下载数据包
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
             </span>
           </div>
         </a>
@@ -839,7 +970,9 @@
 ├─ <span class="accent">china_Subway/</span>      全国地铁线路图
 ├─ <span class="accent">upload-avatar/</span>     图片海报生成器
 ├─ <span class="accent">vue2-leaflets-map/</span> 地图扇形覆盖
+├─ <span class="accent">3d-cubic-images-master/</span> 3D 立体照片墙
 ├─ <span class="accent">dist/</span>              多页签后台模板
+├─ <span class="accent">chinaMapJsonData/</span>  地图 JSON 数据包
 └─ img/              项目预览图</code></pre>
       </div>
     </div>
@@ -856,7 +989,7 @@
     <span>纯静态托管</span>
   </div>
   <div class="foot-keys">
-    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>4</kbd><span>打开项目</span>
+    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>6</kbd><span>打开项目</span>
   </div>
 </footer>
 
@@ -1069,7 +1202,7 @@
     var tag = (e.target && e.target.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-    if (e.key >= "1" && e.key <= "4") {
+    if (e.key >= "1" && e.key <= "6") {
       var card = document.querySelector('.card[data-key="' + e.key + '"]');
       if (card) {
         e.preventDefault();
