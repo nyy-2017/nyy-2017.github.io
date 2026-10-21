@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06070d">
-<meta name="description" content="nyy-2017 的前端项目索引：全国地铁线路图、图片海报生成器、Leaflet 扇形覆盖、mxGraph 组态编辑器、CSS 3D 照片墙、多页签后台模板与地图 JSON 数据包，全部静态托管、点开即用。">
+<meta name="description" content="nyy-2017 的前端项目索引：全国地铁线路图、CSS 3D 照片墙、mxGraph 组态编辑器、Leaflet 扇形覆盖、图片海报生成器与全国地图边界数据。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="项目索引 · nyy-2017">
-<meta property="og:description" content="七个可在线体验的前端实验项目，从地图可视化到 mxGraph 组态编辑器。">
+<meta property="og:description" content="六个可在线体验的前端实验项目，从地图可视化到 mxGraph 组态编辑器。">
 <title>项目索引 · nyy-2017</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M20 44V20l24 24V20' fill='none' stroke='%23070710' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
@@ -523,40 +523,6 @@
   }
   .card:hover .go::after{transform:scaleX(1)}
 
-  /* mock cover for dist */
-  .mock{
-    position:absolute;inset:0;display:flex;flex-direction:column;gap:10px;
-    padding:16px 18px;
-    background:
-      radial-gradient(120% 100% at 12% 0%,rgba(124,92,255,.34),transparent 58%),
-      radial-gradient(100% 90% at 100% 100%,rgba(34,211,238,.18),transparent 60%),
-      #080911;
-    transition:transform .9s var(--ease);
-  }
-  .card:hover .mock{transform:scale(1.035)}
-  .mock-bar{display:flex;gap:6px;align-items:center}
-  .mock-bar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2)}
-  .mock-tabs{display:flex;gap:5px;align-items:flex-end}
-  .mock-tabs b{
-    padding:5px 10px;border-radius:6px 6px 0 0;
-    font-size:9px;font-weight:500;letter-spacing:.08em;color:#a8b0cc;
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-bottom:0;
-  }
-  .mock-tabs b:first-child{background:rgba(124,92,255,.32);border-color:rgba(124,92,255,.55);color:#fff}
-  .mock-panels{
-    flex:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:stretch;
-  }
-  .mock-panels div{
-    border-radius:8px;border:1px solid rgba(255,255,255,.07);
-    background:rgba(255,255,255,.035);
-    display:flex;flex-direction:column;gap:6px;padding:10px;
-  }
-  .mock-panels i{
-    display:block;height:5px;border-radius:99px;background:rgba(255,255,255,.13);
-    width:var(--w,60%);
-  }
-  .mock-panels i:first-child{background:linear-gradient(90deg,rgba(124,92,255,.75),rgba(34,211,238,.55));height:6px}
-
   /* mock cover for 3d cube */
   .cube-media{
     background:
@@ -640,30 +606,6 @@
   }
   .json-card em svg{width:11px;height:11px}
 
-  /* auto download states */
-  .dl-track{
-    position:absolute;left:0;right:0;bottom:0;height:2px;z-index:5;
-    background:rgba(255,255,255,.08);opacity:0;transition:opacity .3s;
-  }
-  .card.is-busy .dl-track,
-  .card.is-done .dl-track{opacity:1}
-  .dl-fill{
-    display:block;height:100%;width:100%;
-    transform:scaleX(0);transform-origin:0 50%;
-    background:linear-gradient(90deg,var(--c1),var(--c2));
-    transition:transform .25s linear;
-  }
-  .card.is-busy{cursor:progress}
-  .card.is-busy .go-label{color:#a8eeff}
-  .card.is-busy .go svg{animation:dlBob 1s ease-in-out infinite}
-  .card.is-done .dl-fill{background:linear-gradient(90deg,#27e0a1,var(--c2))}
-  .card.is-done .go-label{color:#6df3bf}
-  .card.is-done .go svg{transform:none}
-  @keyframes dlBob{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(3px)}
-  }
-
   /* wide resource card */
   @media (min-width:761px){
     .card.wide{
@@ -672,6 +614,7 @@
       align-items:stretch;
     }
     .card.wide .card-media{aspect-ratio:auto;min-height:236px;height:100%}
+    .card.wide .card-media img{object-position:center}
     .card.wide .card-body{padding:clamp(22px,3vw,34px)}
     .card.wide h3{font-size:clamp(20px,2vw,24px)}
     .card.wide p{max-width:46ch}
@@ -801,7 +744,7 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="pill"><span class="pulse"></span>07 个入口 · 全部即开即用</p>
+        <p class="pill"><span class="pulse"></span>06 个入口 · 在线体验 / 源码仓库</p>
         <h1>
           <span class="line"><span>把每个 Demo</span></span>
           <span class="line"><span>变成可访问的<em>坐标</em></span></span>
@@ -818,7 +761,7 @@
           </a>
         </div>
         <ul class="facts">
-          <li><b>07</b><span>项目入口</span></li>
+          <li><b>06</b><span>项目入口</span></li>
           <li><b>18</b><span>技术栈</span></li>
           <li><b>0</b><span>本页依赖</span></li>
         </ul>
@@ -828,15 +771,14 @@
         <div class="ring r1"></div>
         <div class="ring r2"></div>
         <div class="ring r3"></div>
-        <div class="core"><b>07</b><span>PROJECTS</span></div>
+        <div class="core"><b>06</b><span>PROJECTS</span></div>
         <div class="spinner">
           <span class="orb" style="--a:0deg"><span class="orb-i"><b>01</b>地铁线路</span></span>
-          <span class="orb" style="--a:51.4deg"><span class="orb-i"><b>02</b>海报合成</span></span>
-          <span class="orb" style="--a:102.9deg"><span class="orb-i"><b>03</b>扇形覆盖</span></span>
-          <span class="orb" style="--a:154.3deg"><span class="orb-i"><b>04</b>组态编辑</span></span>
-          <span class="orb" style="--a:205.7deg"><span class="orb-i"><b>05</b>立体相册</span></span>
-          <span class="orb" style="--a:257.1deg"><span class="orb-i"><b>06</b>页签模板</span></span>
-          <span class="orb" style="--a:308.6deg"><span class="orb-i"><b>07</b>地图数据</span></span>
+          <span class="orb" style="--a:60deg"><span class="orb-i"><b>02</b>立体相册</span></span>
+          <span class="orb" style="--a:120deg"><span class="orb-i"><b>03</b>组态编辑</span></span>
+          <span class="orb" style="--a:180deg"><span class="orb-i"><b>04</b>扇形覆盖</span></span>
+          <span class="orb" style="--a:240deg"><span class="orb-i"><b>05</b>海报合成</span></span>
+          <span class="orb" style="--a:300deg"><span class="orb-i"><b>06</b>地图数据</span></span>
         </div>
       </div>
     </div>
@@ -847,7 +789,7 @@
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track" id="marquee">
       <span>SVG 绘图</span><span>Canvas 合成</span><span>Leaflet 地图</span><span>Vue 3</span>
-      <span>CSS 3D</span><span>Element Plus</span><span>jQuery</span><span>mxGraph</span><span>手势交互</span>
+      <span>CSS 3D</span><span>Ant Design Vue</span><span>jQuery</span><span>mxGraph</span><span>手势交互</span>
       <span>GeoJSON</span><span>响应式适配</span><span>GitHub Pages</span><span>零构建依赖</span>
     </div>
   </div>
@@ -857,15 +799,15 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div>
-          <p class="eyebrow">Index / 07</p>
+          <p class="eyebrow">Index / 06</p>
           <h2>项目索引</h2>
         </div>
-        <p class="sec-desc">点击卡片进入对应目录。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd> 快速打开。</p>
+        <p class="sec-desc">点击卡片进入在线项目或对应 GitHub 仓库。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd> 快速打开。</p>
       </div>
 
       <div class="grid">
 
-        <a class="card reveal" href="china_Subway/" data-key="1">
+        <a class="card wide reveal" href="china_Subway/" data-key="1">
           <div class="card-media">
             <img src="img/chinaSubway.png" alt="全国地铁线路图项目预览" loading="lazy" decoding="async">
             <span class="tag"><i></i>SVG · 地图</span>
@@ -882,58 +824,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="upload-avatar/" data-key="2">
-          <div class="card-media is-portrait">
-            <img src="img/upload.png" alt="图片海报生成器项目预览" loading="lazy" decoding="async">
-            <span class="tag"><i></i>Canvas · 图像</span>
-            <span class="glare"></span>
-          </div>
-          <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 02</span><kbd>2</kbd></div>
-            <h3>图片海报生成器<small>/upload-avatar</small></h3>
-            <p>本地选图后用触摸手势平移、缩放，叠加三种海报模板，Canvas 实时合成长图并可长按保存。</p>
-            <div class="chips"><span>Vue 2</span><span>html2canvas</span><span>移动端适配</span></div>
-            <span class="go">进入项目
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="card reveal" href="vue2-leaflets-map/" data-key="3">
-          <div class="card-media">
-            <img src="img/left.png" alt="Leaflet 扇形覆盖项目预览" loading="lazy" decoding="async">
-            <span class="tag"><i></i>Leaflet · 几何</span>
-            <span class="glare"></span>
-          </div>
-          <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 03</span><kbd>3</kbd></div>
-            <h3>地图扇形覆盖绘制<small>/vue2-leaflets-map</small></h3>
-            <p>在 Leaflet 地图上动态绘制半圆 / 扇形覆盖范围，通过起止角度与半径控制形状，支持图层与底图切换。</p>
-            <div class="chips"><span>Vue 2</span><span>Leaflet.js</span><span>OpenStreetMap</span></div>
-            <span class="go">进入项目
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="card reveal" href="vue3_mxGraph-pages/" data-key="4">
-          <div class="card-media">
-            <img src="img/mxgraph.png" alt="mxGraph 组态编辑器界面预览" loading="lazy" decoding="async">
-            <span class="tag"><i></i>mxGraph · 组态</span>
-            <span class="glare"></span>
-          </div>
-          <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
-            <h3>MX Graph 组态编辑器<small>/vue3_mxGraph-pages</small></h3>
-            <p>Vue 3 + mxGraph 的物联网组态系统：拓扑绘制、设备绑定、菜单/角色/用户管理与操作日志，接口全部由浏览器内 mock 接管，演示账号 admin / admin。</p>
-            <div class="chips"><span>Vue 3</span><span>Vite</span><span>mxGraph</span><span>Ant Design Vue</span></div>
-            <span class="go">进入项目
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="card reveal" href="3d-cubic-images-master/" data-key="5">
+        <a class="card reveal" href="3d-cubic-images-master/" data-key="2">
           <div class="card-media cube-media">
             <div class="scene">
               <div class="cube">
@@ -945,7 +836,7 @@
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 05</span><kbd>5</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 02</span><kbd>2</kbd></div>
             <h3>3D 立体照片墙<small>/3d-cubic-images-master</small></h3>
             <p>六个 div 拼成一个正方体，靠 transform-style: preserve-3d 与关键帧自动翻面，整页没有一行 JavaScript。</p>
             <div class="chips"><span>纯 CSS</span><span>3D Transform</span><span>关键帧动画</span></div>
@@ -955,53 +846,77 @@
           </div>
         </a>
 
-        <a class="card reveal" href="dist/" data-key="6">
+        <a class="card reveal" href="https://github.com/nyy-2017/vue3_mxGraph-admin" target="_blank" rel="noopener noreferrer" data-key="3">
           <div class="card-media">
-            <div class="mock">
-              <div class="mock-bar"><i></i><i></i><i></i></div>
-              <div class="mock-tabs"><b>首页</b><b>用户管理</b><b>介绍页</b></div>
-              <div class="mock-panels">
-                <div><i style="--w:72%"></i><i style="--w:94%"></i><i style="--w:48%"></i></div>
-                <div><i style="--w:60%"></i><i style="--w:82%"></i><i style="--w:66%"></i></div>
-                <div><i style="--w:88%"></i><i style="--w:52%"></i><i style="--w:74%"></i></div>
-                <div><i style="--w:46%"></i><i style="--w:90%"></i><i style="--w:62%"></i></div>
-              </div>
-            </div>
-            <span class="tag"><i></i>Vue 3 · 后台</span>
+            <img src="img/mxgraph.png" alt="mxGraph 组态编辑器界面预览" loading="lazy" decoding="async">
+            <span class="tag"><i></i>mxGraph · 组态</span>
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 06</span><kbd>6</kbd></div>
-            <h3>多页签后台模板<small>/dist</small></h3>
-            <p>Vue 3 + Element Plus 搭建的后台骨架：登录页、路由守卫、Vuex 状态与多页签布局，开箱即用。</p>
-            <div class="chips"><span>Vue 3</span><span>Element Plus</span><span>Vue Router</span><span>Vuex</span></div>
+            <div class="card-top"><span class="idx">PROJECT 03</span><kbd>3</kbd></div>
+            <h3>MX Graph 组态编辑器<small>vue3_mxGraph-admin</small></h3>
+            <p>Vue 3 + mxGraph 的物联网组态系统：拓扑绘制、设备绑定、菜单/角色/用户管理与操作日志，接口全部由浏览器内 mock 接管，演示账号 admin / admin。</p>
+            <div class="chips"><span>Vue 3</span><span>Vite</span><span>mxGraph</span><span>Ant Design Vue</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="https://github.com/nyy-2017/vue2-leaflet-semicircle" target="_blank" rel="noopener noreferrer" data-key="4">
+          <div class="card-media">
+            <img src="img/left.png" alt="Leaflet 扇形覆盖项目预览" loading="lazy" decoding="async">
+            <span class="tag"><i></i>Leaflet · 几何</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
+            <h3>地图扇形覆盖绘制<small>vue2-leaflet-semicircle</small></h3>
+            <p>在 Leaflet 地图上动态绘制半圆 / 扇形覆盖范围，通过起止角度与半径控制形状，支持图层与底图切换。</p>
+            <div class="chips"><span>Vue 2</span><span>Leaflet.js</span><span>OpenStreetMap</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="upload-avatar/" data-key="5">
+          <div class="card-media is-portrait">
+            <img src="img/upload.png" alt="图片海报生成器项目预览" loading="lazy" decoding="async">
+            <span class="tag"><i></i>Canvas · 图像</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 05</span><kbd>5</kbd></div>
+            <h3>图片海报生成器<small>/upload-avatar</small></h3>
+            <p>本地选图后用触摸手势平移、缩放，叠加三种海报模板，Canvas 实时合成长图并可长按保存。</p>
+            <div class="chips"><span>Vue 2</span><span>html2canvas</span><span>移动端适配</span></div>
             <span class="go">进入项目
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
           </div>
         </a>
 
-        <a class="card wide reveal" href="chinaMapJsonData/jsonFile.zip" download="chinaMapJsonData.zip" data-key="7" data-download>
+        <a class="card wide reveal" href="https://github.com/nyy-2017/chinaMapJsonData" target="_blank" rel="noopener noreferrer" data-key="6">
           <div class="card-media json-media">
             <div class="json-card">
               <b>{ }</b>
               <span>GeoJSON · 省 / 市 / 县</span>
               <em>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-                jsonFile.zip · 约 19 MB
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                chinaMapJsonData 仓库
               </em>
             </div>
-            <span class="tag"><i></i>数据 · 下载</span>
+            <span class="tag"><i></i>数据 · 仓库</span>
             <span class="glare"></span>
-            <span class="dl-track" aria-hidden="true"><span class="dl-fill"></span></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">RESOURCE 07</span><kbd>7</kbd></div>
-            <h3>全国地图边界数据<small>/chinaMapJsonData</small></h3>
-            <p>打包好的省市县三级地图 GeoJSON，最外层的 datas.json 就是全国边界，可直接喂给 ECharts、Leaflet 或 D3 画地图。</p>
+            <div class="card-top"><span class="idx">RESOURCE 06</span><kbd>6</kbd></div>
+            <h3>全国地图边界数据<small>chinaMapJsonData</small></h3>
+            <p>省市县三级地图 GeoJSON 数据集，最外层的 datas.json 就是全国边界，可直接喂给 ECharts、Leaflet 或 D3 画地图。</p>
             <div class="chips"><span>GeoJSON</span><span>ECharts</span><span>数据资源</span></div>
-            <span class="go"><span class="go-label">下载数据包</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
           </div>
         </a>
@@ -1025,12 +940,11 @@
         <pre class="tree"><code><b>/</b>  nyy-2017.github.io
 ├─ <span class="here">index.html</span>          <em>← 你在这里</em>
 ├─ <span class="accent">china_Subway/</span>      全国地铁线路图
-├─ <span class="accent">upload-avatar/</span>     图片海报生成器
-├─ <span class="accent">vue2-leaflets-map/</span> 地图扇形覆盖
-├─ <span class="accent">vue3_mxGraph-pages/</span> mxGraph 组态编辑器
 ├─ <span class="accent">3d-cubic-images-master/</span> 3D 立体照片墙
-├─ <span class="accent">dist/</span>              多页签后台模板
-├─ <span class="accent">chinaMapJsonData/</span>  地图 JSON 数据包
+├─ <span class="accent">upload-avatar/</span>     图片海报生成器
+├─ <span class="accent">https://github.com/nyy-2017/vue3_mxGraph-admin</span> mxGraph 组态编辑器
+├─ <span class="accent">https://github.com/nyy-2017/vue2-leaflet-semicircle</span> 地图扇形覆盖
+├─ <span class="accent">https://github.com/nyy-2017/chinaMapJsonData</span> 地图边界数据
 └─ img/              项目预览图</code></pre>
       </div>
     </div>
@@ -1047,7 +961,7 @@
     <span>纯静态托管</span>
   </div>
   <div class="foot-keys">
-    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>7</kbd><span>打开项目</span>
+    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>6</kbd><span>打开项目</span>
   </div>
 </footer>
 
@@ -1254,107 +1168,13 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
-  /* ---------------- 7. one-click dataset download ---------------- */
-  var dlCard = document.querySelector("[data-download]");
-  if (dlCard) {
-    var dlLabel = dlCard.querySelector(".go-label");
-    var dlFill = dlCard.querySelector(".dl-fill");
-    var dlUrl = dlCard.getAttribute("href");
-    var dlName = dlCard.getAttribute("download") || "chinaMapJsonData.zip";
-    var dlBusy = false;
-    var dlTimer = 0;
-
-    var dlState = function (cls) {
-      dlCard.classList.remove("is-busy", "is-done");
-      if (cls) dlCard.classList.add(cls);
-    };
-    var dlText = function (text) {
-      if (text) dlLabel.textContent = text;
-    };
-    var dlProgress = function (ratio) {
-      dlFill.style.transform = "scaleX(" + Math.min(Math.max(ratio, 0), 1) + ")";
-    };
-    var dlSave = function (blob) {
-      var objectUrl = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = objectUrl;
-      a.download = dlName;
-      a.style.display = "none";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 10000);
-    };
-
-    dlCard.addEventListener("click", function (e) {
-      if (dlBusy) { e.preventDefault(); return; }
-
-      var canStream = window.fetch && window.Blob && window.URL && URL.createObjectURL;
-      if (!canStream) return; // 老浏览器直接走 <a download> 原生下载
-
-      e.preventDefault();
-      dlBusy = true;
-      window.clearTimeout(dlTimer);
-      dlState("is-busy");
-      dlText("连接中…");
-      dlProgress(0);
-
-      window.fetch(dlUrl)
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          var total = Number(res.headers.get("content-length")) || 0;
-          if (!res.body || !total || typeof res.body.getReader !== "function") {
-            dlText("下载中…");
-            return res.blob();
-          }
-
-          var reader = res.body.getReader();
-          var chunks = [];
-          var received = 0;
-          return (function pump() {
-            return reader.read().then(function (chunk) {
-              if (chunk.done) return new Blob(chunks, { type: "application/zip" });
-              chunks.push(chunk.value);
-              received += chunk.value.length;
-              dlText("下载中 " + Math.round(Math.min(received / total, 1) * 100) + "%");
-              dlProgress(received / total);
-              return pump();
-            });
-          })();
-        })
-        .then(function (blob) {
-          dlSave(blob);
-          dlBusy = false;
-          dlState("is-done");
-          dlText("已开始下载");
-          dlProgress(1);
-          dlTimer = window.setTimeout(function () {
-            dlState(null);
-            dlText("再次下载");
-            dlProgress(0);
-          }, 4000);
-        })
-        .catch(function () {
-          // 网络或流式读取失败时，退回原生下载，保证一定能拿到文件
-          dlBusy = false;
-          dlState(null);
-          dlText("直连下载中…");
-          dlProgress(0);
-          window.setTimeout(function () {
-            window.location.href = dlUrl;
-            dlText("下载数据包");
-          }, 150);
-        });
-    });
-  }
-
-  /* ---------------- 8. keyboard shortcuts ---------------- */
+  /* ---------------- 7. keyboard shortcuts ---------------- */
   document.addEventListener("keydown", function (e) {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     var tag = (e.target && e.target.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-    if (e.key >= "1" && e.key <= "7") {
+    if (e.key >= "1" && e.key <= "6") {
       var card = document.querySelector('.card[data-key="' + e.key + '"]');
       if (card) {
         e.preventDefault();
@@ -1366,7 +1186,7 @@
     }
   });
 
-  /* ---------------- 9. seamless marquee ---------------- */
+  /* ---------------- 8. seamless marquee ---------------- */
   var track = document.getElementById("marquee");
   if (track && !reduceMotion) {
     track.innerHTML += track.innerHTML;
