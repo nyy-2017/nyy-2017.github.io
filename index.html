@@ -802,12 +802,12 @@
           <p class="eyebrow">Index / 06</p>
           <h2>项目索引</h2>
         </div>
-        <p class="sec-desc">点击卡片进入在线项目或对应 GitHub 仓库。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd> 快速打开。</p>
+        <p class="sec-desc">点击卡片会在新窗口打开在线项目或 GitHub 仓库。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd> 快速打开。</p>
       </div>
 
       <div class="grid">
 
-        <a class="card wide reveal" href="china_Subway/" data-key="1">
+        <a class="card wide reveal" href="china_Subway/" target="_blank" rel="noopener noreferrer" data-key="1">
           <div class="card-media">
             <img src="img/chinaSubway.png" alt="全国地铁线路图项目预览" loading="lazy" decoding="async">
             <span class="tag"><i></i>SVG · 地图</span>
@@ -824,7 +824,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="3d-cubic-images-master/" data-key="2">
+        <a class="card reveal" href="3d-cubic-images-master/" target="_blank" rel="noopener noreferrer" data-key="2">
           <div class="card-media cube-media">
             <div class="scene">
               <div class="cube">
@@ -880,7 +880,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="upload-avatar/" data-key="5">
+        <a class="card reveal" href="upload-avatar/" target="_blank" rel="noopener noreferrer" data-key="5">
           <div class="card-media is-portrait">
             <img src="img/upload.png" alt="图片海报生成器项目预览" loading="lazy" decoding="async">
             <span class="tag"><i></i>Canvas · 图像</span>
@@ -1178,7 +1178,7 @@
       var card = document.querySelector('.card[data-key="' + e.key + '"]');
       if (card) {
         e.preventDefault();
-        card.click();
+        window.open(card.href, "_blank", "noopener");
       }
     }
     if (e.key === "g" || e.key === "G") {
