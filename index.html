@@ -793,16 +793,6 @@
     box-shadow:0 -8px 0 rgba(255,255,255,.1),0 -16px 0 rgba(255,255,255,.07);
   }
 
-  /* mock · 反编译终端 */
-  .mock-term-media{background:radial-gradient(120% 110% at 0% 0%,rgba(39,224,161,.16),transparent 60%),#070a10}
-  .mock-term{position:absolute;inset:0;padding:15px 17px;font-family:var(--mono);font-size:10px;line-height:1.9;color:#8ee7c0}
-  .mock-term .bar{display:flex;gap:5px;margin-bottom:9px}
-  .mock-term .bar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18)}
-  .mock-term p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mock-term .dim{color:#5d6b7d}
-  .mock-term .acc{color:#b8a2ff}
-  .mock-term .ok{color:#49e6a5}
-
   /* mock · 拓扑图 */
   .mock-topo-media{
     background:
@@ -893,7 +883,7 @@
         <ul class="facts">
           <li><b>69</b><span>开源仓库</span></li>
           <li><b>10</b><span>精选项目</span></li>
-          <li><b>2019</b><span>写前端起</span></li>
+          <li><b>2017</b><span>写前端起</span></li>
         </ul>
       </div>
 
@@ -905,12 +895,12 @@
         <div class="spinner">
           <span class="orb" style="--a:0deg"><span class="orb-i"><b>01</b>空管</span></span>
           <span class="orb" style="--a:36deg"><span class="orb-i"><b>02</b>地铁</span></span>
-          <span class="orb" style="--a:72deg"><span class="orb-i"><b>03</b>组态</span></span>
+          <span class="orb" style="--a:72deg"><span class="orb-i"><b>03</b>水利</span></span>
           <span class="orb" style="--a:108deg"><span class="orb-i"><b>04</b>3D</span></span>
-          <span class="orb" style="--a:144deg"><span class="orb-i"><b>05</b>海报</span></span>
+          <span class="orb" style="--a:144deg"><span class="orb-i"><b>05</b>组态</span></span>
           <span class="orb" style="--a:180deg"><span class="orb-i"><b>06</b>扇形</span></span>
-          <span class="orb" style="--a:216deg"><span class="orb-i"><b>07</b>小程序</span></span>
-          <span class="orb" style="--a:252deg"><span class="orb-i"><b>08</b>反编译</span></span>
+          <span class="orb" style="--a:216deg"><span class="orb-i"><b>07</b>海报</span></span>
+          <span class="orb" style="--a:252deg"><span class="orb-i"><b>08</b>小程序</span></span>
           <span class="orb" style="--a:288deg"><span class="orb-i"><b>09</b>拓扑</span></span>
           <span class="orb" style="--a:324deg"><span class="orb-i"><b>10</b>分片</span></span>
         </div>
@@ -976,7 +966,24 @@
           </div>
         </a>
 
-        <a class="card reveal" href="3d-cubic-images-master/" target="_blank" rel="noopener noreferrer" data-key="3">
+        <a class="card reveal" href="https://github.com/nyy-2017/water_ant_report_optimized_local_db" target="_blank" rel="noopener noreferrer" data-key="3">
+          <div class="card-media">
+            <img src="img/baiyi_01.png" alt="小蚁水利统一平台界面预览" decoding="async">
+            <span class="tag"><i></i>NEW · 水利全栈</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 03 · 源码</span><kbd>3</kbd></div>
+            <h3>小蚁水利统一平台<small>PC 后台 + 小程序 + Node · 本地数据库</small></h3>
+            <p>面向水利白蚁隐患上报的一体化平台：小程序现场拍照与地图选点上报，后台数据大屏 + 工单审核 / 派单 / 流转，Node + SQLite 本地持久化、JWT 登录与角色权限。</p>
+            <div class="chips"><span>Vue 3</span><span>Ant Design Vue</span><span>ECharts</span><span>微信小程序</span><span>Node.js</span><span>SQLite</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="3d-cubic-images-master/" target="_blank" rel="noopener noreferrer" data-key="4">
           <div class="card-media cube-media">
             <div class="scene">
               <div class="cube">
@@ -988,7 +995,7 @@
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 03</span><kbd>3</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
             <h3>3D 立体照片墙<small>在线 Demo</small></h3>
             <p>六个 div 拼成一个正方体，靠 transform-style: preserve-3d 与关键帧自动翻面，整页没有一行 JavaScript。</p>
             <div class="chips"><span>纯 CSS</span><span>3D Transform</span><span>关键帧动画</span></div>
@@ -998,14 +1005,14 @@
           </div>
         </a>
 
-        <a class="card reveal" href="https://github.com/nyy-2017/vue3_mxGraph-admin" target="_blank" rel="noopener noreferrer" data-key="4">
+        <a class="card reveal" href="https://github.com/nyy-2017/vue3_mxGraph-admin" target="_blank" rel="noopener noreferrer" data-key="5">
           <div class="card-media">
             <img src="img/mxgraph.png" alt="mxGraph 组态编辑器界面预览" decoding="async">
             <span class="tag"><i></i>mxGraph · 组态</span>
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 05</span><kbd>5</kbd></div>
             <h3>MX Graph 组态编辑器<small>vue3_mxGraph-admin</small></h3>
             <p>Vue 3 + mxGraph 的物联网组态系统：拓扑绘制、设备绑定、菜单/角色/用户管理与操作日志，接口全部由浏览器内 mock 接管，演示账号 admin / admin。</p>
             <div class="chips"><span>Vue 3</span><span>Vite</span><span>mxGraph</span><span>Ant Design Vue</span></div>
@@ -1015,14 +1022,14 @@
           </div>
         </a>
 
-        <a class="card reveal" href="https://github.com/nyy-2017/vue2-leaflet-semicircle" target="_blank" rel="noopener noreferrer" data-key="5">
+        <a class="card reveal" href="https://github.com/nyy-2017/vue2-leaflet-semicircle" target="_blank" rel="noopener noreferrer" data-key="6">
           <div class="card-media">
             <img src="img/left.png" alt="Leaflet 扇形覆盖项目预览" decoding="async">
             <span class="tag"><i></i>Leaflet · 几何</span>
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 05</span><kbd>5</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 06</span><kbd>6</kbd></div>
             <h3>地图扇形覆盖绘制<small>vue2-leaflet-semicircle</small></h3>
             <p>在 Leaflet 地图上动态绘制半圆 / 扇形覆盖范围，通过起止角度与半径控制形状，支持图层与底图切换。</p>
             <div class="chips"><span>Vue 2</span><span>Leaflet.js</span><span>OpenStreetMap</span></div>
@@ -1032,14 +1039,14 @@
           </div>
         </a>
 
-        <a class="card reveal" href="upload-avatar/" target="_blank" rel="noopener noreferrer" data-key="6">
+        <a class="card reveal" href="upload-avatar/" target="_blank" rel="noopener noreferrer" data-key="7">
           <div class="card-media is-portrait">
             <img src="img/upload.png" alt="图片海报生成器项目预览" decoding="async">
             <span class="tag"><i></i>Canvas · 图像</span>
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 06</span><kbd>6</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 07</span><kbd>7</kbd></div>
             <h3>图片海报生成器<small>在线 Demo</small></h3>
             <p>本地选图后用触摸手势平移、缩放，叠加三种海报模板，Canvas 实时合成长图并可长按保存。</p>
             <div class="chips"><span>Vue 2</span><span>html2canvas</span><span>移动端适配</span></div>
@@ -1049,7 +1056,7 @@
           </div>
         </a>
 
-        <a class="card reveal" href="https://github.com/nyy-2017/wechat-app-demos" target="_blank" rel="noopener noreferrer" data-key="7">
+        <a class="card reveal" href="https://github.com/nyy-2017/wechat-app-demos" target="_blank" rel="noopener noreferrer" data-key="8">
           <div class="card-media mock-wx-media">
             <div class="mock-wx">
               <i></i><i></i><i></i><i></i><i></i>
@@ -1058,33 +1065,10 @@
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 07 · 15 ★</span><kbd>7</kbd></div>
+            <div class="card-top"><span class="idx">PROJECT 08 · 15 ★</span><kbd>8</kbd></div>
             <h3>微信小程序案例库<small>120+ 个源码合集</small></h3>
             <p>覆盖商城、工具、海报、答题等场景的 120 多个小程序源码，按功能分类整理，改改就能跑。</p>
             <div class="chips"><span>微信小程序</span><span>源码合集</span><span>15 Stars</span></div>
-            <span class="go">前往 GitHub
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </span>
-          </div>
-        </a>
-
-        <a class="card reveal" href="https://github.com/nyy-2017/wxapp-unpacker" target="_blank" rel="noopener noreferrer" data-key="8">
-          <div class="card-media mock-term-media">
-            <div class="mock-term">
-              <div class="bar"><i></i><i></i><i></i></div>
-              <p><span class="dim">$</span> node wuWxapkg.js app.wxapkg</p>
-              <p><span class="acc">[unpack]</span> __APP__.wxapkg</p>
-              <p><span class="acc">[sub]</span> packageA · packageB</p>
-              <p><span class="ok">[done]</span> 还原 412 个文件</p>
-            </div>
-            <span class="tag"><i></i>逆向 · 工具</span>
-            <span class="glare"></span>
-          </div>
-          <div class="card-body">
-            <div class="card-top"><span class="idx">PROJECT 08 · 10 ★</span><kbd>8</kbd></div>
-            <h3>小程序反编译工具<small>wxapp-unpacker</small></h3>
-            <p>一键解包 .wxapkg，支持分包还原与代码美化，把线上小程序还原成可读的目录结构。</p>
-            <div class="chips"><span>Node.js</span><span>逆向</span><span>10 Stars</span></div>
             <span class="go">前往 GitHub
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
