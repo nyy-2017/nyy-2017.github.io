@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#06070d">
+<meta name="description" content="nyy-2017 的项目索引：空管语音通信交换系统 ATC-VCS、全国地铁线路图、CSS 3D 照片墙、mxGraph 组态编辑器、Leaflet 扇形覆盖、图片海报生成器与全国地图边界数据。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="项目索引 · nyy-2017">
+<meta property="og:description" content="七个前端项目：从空管语音交换、地图可视化到 mxGraph 组态编辑器。">
+<meta property="og:image" content="https://nyy-2017.github.io/img/og-cover-hub.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="nyy-2017 项目索引：把每个 Demo 变成可访问的坐标">
+<meta property="og:url" content="https://nyy-2017.github.io/index1.html">
+<meta property="og:site_name" content="nyy-2017">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nyy-2017.github.io/img/og-cover-hub.jpg">
+<title>项目索引 · nyy-2017</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M20 44V20l24 24V20' fill='none' stroke='%23070710' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --bg:#06070d;
+    --bg-soft:#0a0c16;
+    --fg:#eef1f8;
+    --muted:#8b93a9;
+    --line:rgba(255,255,255,.09);
+    --line-strong:rgba(255,255,255,.16);
+    --c1:#7c5cff;
+    --c2:#22d3ee;
+    --c3:#ff5c8a;
+    --radius:22px;
+    --ease:cubic-bezier(.22,1,.36,1);
+    --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Liberation Mono",monospace;
+    --sans:"Inter","Segoe UI",system-ui,-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --maxw:1200px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+
+  html{
+    scroll-behavior:smooth;
+    scroll-padding-top:88px;
+    -webkit-text-size-adjust:100%;
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.6;
+    letter-spacing:.01em;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{background:rgba(124,92,255,.4);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  :focus-visible{outline:2px solid var(--c2);outline-offset:3px;border-radius:8px}
+
+  /* ---------- background layers ---------- */
+  #bg{
+    position:fixed;inset:0;z-index:0;
+    width:100%;height:100%;
+    pointer-events:none;
+    opacity:.95;
+  }
+
+  .aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .aurora i{
+    position:absolute;display:block;border-radius:50%;
+    filter:blur(90px);opacity:.5;
+    animation:drift 22s ease-in-out infinite alternate;
+  }
+  .aurora i:nth-child(1){width:52vw;height:52vw;left:-14vw;top:-16vw;background:radial-gradient(circle,rgba(124,92,255,.55),transparent 68%)}
+  .aurora i:nth-child(2){width:44vw;height:44vw;right:-12vw;top:6vh;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 68%);animation-delay:-7s}
+  .aurora i:nth-child(3){width:40vw;height:40vw;left:32vw;bottom:-22vw;background:radial-gradient(circle,rgba(255,92,138,.28),transparent 68%);animation-delay:-13s}
+  @keyframes drift{
+    from{transform:translate3d(0,0,0) scale(1)}
+    to{transform:translate3d(4vw,-3vh,0) scale(1.16)}
+  }
+
+  .grain{
+    position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .spot{
+    position:fixed;left:0;top:0;width:600px;height:600px;z-index:1;
+    pointer-events:none;border-radius:50%;
+    background:radial-gradient(circle,rgba(124,92,255,.16),rgba(34,211,238,.06) 42%,transparent 66%);
+    transition:transform .5s var(--ease);
+    will-change:transform;
+  }
+
+  /* ---------- scroll progress ---------- */
+  .progress{
+    position:fixed;top:0;left:0;right:0;height:2px;z-index:60;
+    background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));
+    transform:scaleX(0);transform-origin:0 50%;
+    transition:transform .1s linear;
+  }
+
+  /* ---------- header ---------- */
+  .site-head{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;gap:24px;
+    padding:18px clamp(18px,4vw,44px);
+    transition:padding .4s var(--ease),background .4s,border-color .4s,backdrop-filter .4s;
+    border-bottom:1px solid transparent;
+  }
+  .site-head.scrolled{
+    padding-top:11px;padding-bottom:11px;
+    background:rgba(6,7,13,.72);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border-bottom-color:var(--line);
+  }
+
+  .brand{display:flex;align-items:center;gap:11px;margin-right:auto}
+  .mark{
+    display:grid;place-items:center;width:34px;height:34px;border-radius:11px;
+    font-weight:800;font-size:16px;color:#07070f;
+    background:linear-gradient(135deg,var(--c1),var(--c2));
+    box-shadow:0 8px 22px -8px rgba(124,92,255,.9);
+    transition:transform .5s var(--ease),box-shadow .5s;
+  }
+  .brand:hover .mark{transform:rotate(-8deg) scale(1.06);box-shadow:0 10px 28px -6px rgba(34,211,238,.85)}
+  .brand-txt{display:flex;flex-direction:column;line-height:1.15}
+  .brand-txt strong{font-size:14px;letter-spacing:.01em}
+  .brand-txt em{
+    font-style:normal;font-family:var(--mono);font-size:9px;
+    letter-spacing:.22em;color:var(--muted);
+  }
+
+  .nav{display:flex;align-items:center;gap:6px}
+  .nav a{
+    position:relative;padding:8px 13px;border-radius:10px;
+    font-size:13.5px;color:#c3c9da;
+    transition:color .3s,background .3s;
+  }
+  .nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+  .nav a.gh{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);color:var(--fg)}
+  .nav a.gh:hover{border-color:rgba(124,92,255,.6);background:rgba(124,92,255,.14)}
+  .nav svg{width:13px;height:13px}
+
+  .clock{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--muted);
+  }
+  .clock .dot{
+    width:6px;height:6px;border-radius:50%;background:#27e0a1;
+    box-shadow:0 0 0 0 rgba(39,224,161,.6);
+    animation:beat 2.4s ease-out infinite;
+  }
+  @keyframes beat{
+    0%{box-shadow:0 0 0 0 rgba(39,224,161,.5)}
+    70%{box-shadow:0 0 0 8px rgba(39,224,161,0)}
+    100%{box-shadow:0 0 0 0 rgba(39,224,161,0)}
+  }
+
+  /* ---------- layout ---------- */
+  .wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:clamp(18px,4vw,44px)}
+  main{position:relative;z-index:2}
+
+  .eyebrow{
+    display:flex;align-items:center;gap:10px;
+    margin:0 0 18px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:clamp(120px,17vh,180px) 0 40px}
+  .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;
+    gap:clamp(24px,5vw,64px);align-items:center;
+  }
+
+  .pill{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:7px 14px 7px 11px;margin-bottom:26px;
+    border:1px solid var(--line);border-radius:999px;
+    background:rgba(255,255,255,.035);
+    font-size:12px;color:#c8cee0;
+    backdrop-filter:blur(8px);
+  }
+  .pill .pulse{
+    position:relative;width:7px;height:7px;border-radius:50%;
+    background:#27e0a1;box-shadow:0 0 10px #27e0a1;
+  }
+  .pill .pulse::after{
+    content:"";position:absolute;inset:-4px;border-radius:50%;
+    border:1px solid rgba(39,224,161,.55);
+    animation:ring 2.2s ease-out infinite;
+  }
+  @keyframes ring{
+    0%{transform:scale(.6);opacity:.9}
+    100%{transform:scale(1.9);opacity:0}
+  }
+
+  h1{
+    margin:0;
+    font-size:clamp(34px,5.4vw,62px);
+    line-height:1.16;
+    letter-spacing:-.035em;
+    font-weight:750;
+    text-wrap:balance;
+  }
+  h1 .line{display:block}
+  h1 .line > span{
+    display:block;
+    animation:rise 1s var(--ease) both;
+  }
+  h1 .line:nth-child(2) > span{animation-delay:.12s}
+  @keyframes rise{
+    from{opacity:0;transform:translateY(.42em)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  h1 em{
+    font-style:normal;
+    background:linear-gradient(100deg,#fff 0%,#b9c2ff 22%,var(--c2) 46%,#c4a8ff 72%,#fff 100%);
+    background-size:260% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:shine 9s linear infinite;
+  }
+  @keyframes shine{
+    from{background-position:0% 50%}
+    to{background-position:260% 50%}
+  }
+
+  .lede{
+    max-width:44ch;margin:24px 0 0;
+    font-size:clamp(14.5px,1.3vw,16.5px);
+    line-height:1.85;color:#a6aec4;
+  }
+
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 22px;border-radius:13px;
+    font-size:14px;font-weight:600;letter-spacing:.01em;
+    transition:transform .35s var(--ease),box-shadow .35s,background .35s,border-color .35s;
+    will-change:transform;
+  }
+  .btn svg{width:15px;height:15px}
+  .btn.primary{
+    color:#08080f;
+    background:linear-gradient(120deg,#fff,#d9dcff);
+    box-shadow:0 14px 34px -14px rgba(255,255,255,.75);
+  }
+  .btn.primary:hover{transform:translateY(-2px);box-shadow:0 20px 44px -16px rgba(180,180,255,.95)}
+  .btn.primary svg{transition:transform .35s var(--ease)}
+  .btn.primary:hover svg{transform:translateY(3px)}
+  .btn.ghost{
+    border:1px solid var(--line-strong);color:#dfe3f2;
+    background:rgba(255,255,255,.03);
+  }
+  .btn.ghost:hover{transform:translateY(-2px);border-color:rgba(124,92,255,.6);background:rgba(124,92,255,.14)}
+
+  .facts{
+    display:flex;gap:clamp(20px,4vw,46px);
+    margin:44px 0 0;padding:22px 0 0;
+    list-style:none;border-top:1px solid var(--line);
+  }
+  .facts b{
+    display:block;font-size:clamp(22px,2.4vw,30px);font-weight:700;
+    letter-spacing:-.03em;
+    background:linear-gradient(150deg,#fff,#9aa4c8);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .facts span{font-size:11.5px;letter-spacing:.14em;color:var(--muted);font-family:var(--mono)}
+
+  /* ---------- orbit ---------- */
+  .hero-visual{
+    --r:min(168px,30vw);
+    position:relative;
+    width:min(520px,80vw);aspect-ratio:1;
+    margin-inline:auto;
+    display:grid;place-items:center;
+  }
+  .hero-visual::before{
+    content:"";position:absolute;inset:6%;border-radius:50%;
+    background:conic-gradient(from 0deg,transparent 0 62%,rgba(124,92,255,.55) 78%,rgba(34,211,238,.45) 88%,transparent 100%);
+    filter:blur(18px);opacity:.75;
+    animation:spin 14s linear infinite;
+  }
+  .ring{
+    position:absolute;border-radius:50%;
+    border:1px solid rgba(255,255,255,.07);
+  }
+  .ring.r1{inset:14%}
+  .ring.r2{inset:23%;border-style:dashed;border-color:rgba(255,255,255,.055);animation:spin 60s linear infinite reverse}
+  .ring.r3{inset:32%;border-color:rgba(255,255,255,.1)}
+  .ring.r1::after,.ring.r3::after{
+    content:"";position:absolute;top:50%;left:50%;
+    width:4px;height:4px;border-radius:50%;background:#c9d0ff;
+    box-shadow:0 0 10px 2px rgba(150,140,255,.8);
+    transform:translate(-50%,-50%) translateY(calc(var(--r) * -.62));
+  }
+
+  .core{
+    position:relative;z-index:3;
+    display:grid;place-items:center;gap:2px;
+    width:clamp(88px,11vw,120px);aspect-ratio:1;border-radius:50%;
+    background:
+      radial-gradient(circle at 32% 22%,rgba(124,92,255,.6),transparent 62%),
+      radial-gradient(circle at 72% 82%,rgba(34,211,238,.35),transparent 60%),
+      rgba(10,11,22,.86);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 0 70px rgba(124,92,255,.42),inset 0 0 30px rgba(255,255,255,.06);
+    backdrop-filter:blur(8px);
+    text-align:center;
+  }
+  .core b{
+    font-size:clamp(26px,3.4vw,36px);line-height:1;font-weight:750;
+    letter-spacing:-.04em;
+  }
+  .core span{
+    font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;color:#9aa4c8;
+  }
+
+  .spinner{position:absolute;inset:0;z-index:2;animation:spin 34s linear infinite}
+  .hero-visual:hover .spinner,
+  .hero-visual:hover .orb-i,
+  .hero-visual:hover::before{animation-play-state:paused}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .orb{
+    position:absolute;left:50%;top:50%;
+    transform:translate(-50%,-50%) rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1));
+  }
+  .orb-i{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:7px 13px;border-radius:999px;white-space:nowrap;
+    font-size:11.5px;color:#dfe4f7;
+    background:rgba(12,14,26,.86);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 10px 26px -14px rgba(0,0,0,.9);
+    backdrop-filter:blur(10px);
+    animation:spin 34s linear infinite reverse;
+  }
+  .orb-i b{
+    font-family:var(--mono);font-size:9.5px;font-weight:500;
+    letter-spacing:.08em;color:var(--c2);
+  }
+
+  .scroll-cue{
+    display:flex;align-items:center;gap:10px;
+    max-width:var(--maxw);margin:clamp(30px,6vh,64px) auto 0;
+    padding-inline:clamp(18px,4vw,44px);
+    font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:#5d6580;
+  }
+  .scroll-cue span{
+    position:relative;display:block;width:46px;height:1px;background:var(--line-strong);overflow:hidden;
+  }
+  .scroll-cue span::after{
+    content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#fff,transparent);
+    animation:sweep 2.6s ease-in-out infinite;
+  }
+  @keyframes sweep{
+    0%{transform:translateX(-100%)}
+    60%,100%{transform:translateX(100%)}
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    position:relative;z-index:2;
+    margin:clamp(34px,6vh,60px) 0 0;padding:18px 0;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+    background:rgba(255,255,255,.014);
+  }
+  .marquee-track{
+    display:flex;width:max-content;
+    animation:marquee 40s linear infinite;
+  }
+  .marquee:hover .marquee-track{animation-play-state:paused}
+  .marquee-track span{
+    display:inline-flex;align-items:center;gap:16px;
+    padding-right:16px;
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;
+    color:#77809a;text-transform:uppercase;white-space:nowrap;
+  }
+  .marquee-track span::after{content:"◆";font-size:7px;color:rgba(124,92,255,.85)}
+  @keyframes marquee{to{transform:translateX(-50%)}}
+
+  /* ---------- section head ---------- */
+  .projects{padding:clamp(70px,11vh,120px) 0 clamp(40px,6vh,64px)}
+  .sec-head{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:28px;flex-wrap:wrap;margin-bottom:clamp(30px,5vh,46px);
+  }
+  .sec-head h2{
+    margin:0;font-size:clamp(28px,3.6vw,42px);font-weight:730;
+    letter-spacing:-.03em;line-height:1.15;
+  }
+  .sec-head .eyebrow{margin-bottom:12px}
+  .sec-desc{
+    max-width:34ch;margin:0 0 6px;font-size:13.5px;line-height:1.8;color:var(--muted);
+  }
+  kbd{
+    display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;
+    font-family:var(--mono);font-size:10.5px;color:#cfd5e8;
+    border:1px solid var(--line-strong);border-radius:5px;
+    background:rgba(255,255,255,.05);vertical-align:1px;
+  }
+
+  /* ---------- cards ---------- */
+  .grid{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:clamp(16px,2vw,24px);
+  }
+
+  .card{
+    --rx:0deg;--ry:0deg;--y:0px;--mx:50%;--my:50%;
+    position:relative;display:flex;flex-direction:column;
+    border-radius:var(--radius);overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    border:1px solid var(--line);
+    transform:perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(var(--y));
+    transition:transform .38s var(--ease),border-color .38s var(--ease),box-shadow .38s var(--ease);
+    will-change:transform;
+  }
+  .card::before{
+    content:"";position:absolute;inset:0;z-index:4;border-radius:inherit;
+    padding:1px;pointer-events:none;
+    background:linear-gradient(135deg,rgba(124,92,255,.85),rgba(34,211,238,.6) 45%,transparent 72%);
+    -webkit-mask:linear-gradient(#000,#000) content-box,linear-gradient(#000,#000);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+    opacity:0;transition:opacity .4s;
+  }
+  .card:hover{
+    --y:-6px;
+    border-color:rgba(140,120,255,.35);
+    box-shadow:0 34px 64px -30px rgba(70,50,190,.75);
+    transition-duration:.16s;
+  }
+  .card:hover::before{opacity:1}
+
+  .card-media{
+    position:relative;aspect-ratio:16/10;overflow:hidden;
+    background:radial-gradient(130% 110% at 18% 0%,#191b30,#080911 72%);
+  }
+  .card-media img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:top center;
+    transform:scale(1.02);
+    transition:transform .9s var(--ease),filter .5s;
+    filter:saturate(.92) contrast(1.03) brightness(.94);
+  }
+  .card:hover .card-media img{transform:scale(1.075);filter:saturate(1.06) contrast(1.04)}
+  .card-media::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(6,7,13,0) 38%,rgba(6,7,13,.55) 78%,rgba(6,7,13,.92));
+  }
+  .card-media.is-portrait{background:radial-gradient(90% 80% at 50% 20%,#1c1f36,#080911 74%)}
+  .card-media.is-portrait img{
+    object-fit:contain;object-position:center;
+    padding:12px 26%;
+    filter:drop-shadow(0 18px 30px rgba(0,0,0,.65));
+  }
+  .card:hover .card-media.is-portrait img{transform:scale(1.05) translateY(-2px)}
+
+  .tag{
+    position:absolute;left:16px;top:16px;z-index:3;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:5px 11px;border-radius:999px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:#e6e9f8;background:rgba(10,11,20,.62);
+    border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(10px);
+  }
+  .tag i{width:5px;height:5px;border-radius:50%;background:var(--c2);box-shadow:0 0 8px var(--c2)}
+
+  .glare{
+    position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
+    background:radial-gradient(340px circle at var(--mx) var(--my),rgba(150,130,255,.28),transparent 62%);
+    transition:opacity .35s;
+  }
+  .card:hover .glare{opacity:1}
+
+  .card-body{
+    position:relative;z-index:2;flex:1;
+    display:flex;flex-direction:column;gap:11px;
+    padding:20px clamp(18px,2vw,24px) 22px;
+  }
+  .card-top{
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:#6d768f;
+  }
+  .card-top .idx{color:#a3aac2}
+  .card h3{
+    margin:0;font-size:clamp(18px,1.7vw,21px);font-weight:660;
+    letter-spacing:-.015em;line-height:1.35;
+  }
+  .card h3 small{
+    display:block;margin-top:4px;
+    font-family:var(--mono);font-size:10.5px;font-weight:400;
+    letter-spacing:.1em;color:#5f6884;
+  }
+  .card p{
+    margin:0;font-size:13px;line-height:1.78;color:#98a0b8;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .chips span{
+    padding:3px 9px;border-radius:6px;
+    font-size:10.5px;letter-spacing:.03em;color:#b6bdd4;
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.07);
+  }
+  .go{
+    display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding-top:14px;
+    font-size:12.5px;font-weight:600;letter-spacing:.02em;color:#cfd5ff;
+  }
+  .go svg{width:13px;height:13px;transition:transform .4s var(--ease)}
+  .card:hover .go svg{transform:translate(3px,-3px)}
+  .go::after{
+    content:"";flex:1;height:1px;margin-left:4px;
+    background:linear-gradient(90deg,rgba(124,92,255,.5),transparent);
+    transform:scaleX(0);transform-origin:0 50%;
+    transition:transform .45s var(--ease);
+  }
+  .card:hover .go::after{transform:scaleX(1)}
+
+  /* mock cover for 3d cube */
+  .cube-media{
+    background:
+      radial-gradient(90% 90% at 50% 8%,rgba(124,92,255,.34),transparent 62%),
+      radial-gradient(80% 80% at 82% 92%,rgba(34,211,238,.18),transparent 60%),
+      #080911;
+  }
+  .cube-media::after{background:linear-gradient(180deg,rgba(6,7,13,0) 52%,rgba(6,7,13,.72) 84%,rgba(6,7,13,.95))}
+  .scene{
+    position:absolute;inset:0;display:grid;place-items:center;
+    perspective:760px;
+  }
+  .scene::before{
+    content:"";position:absolute;left:50%;top:72%;width:170px;height:34px;
+    transform:translate(-50%,-50%);border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%,rgba(124,92,255,.6),transparent 72%);
+    filter:blur(12px);
+  }
+  .cube{
+    --s:132px;
+    position:relative;width:var(--s);height:var(--s);
+    transform-style:preserve-3d;
+    animation:cubeSpin 20s linear infinite;
+  }
+  .cube i{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:inset 0 0 26px rgba(0,0,0,.4);
+  }
+  .cube i:nth-child(1){transform:translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(2){transform:rotateY(90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(3){transform:rotateY(-90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(4){transform:rotateX(90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(5){transform:rotateX(-90deg) translateZ(calc(var(--s) / 2))}
+  .cube i:nth-child(6){transform:rotateY(180deg) translateZ(calc(var(--s) / 2))}
+  .cube .cf1{background-image:url("3d-cubic-images-master/img/front.jpeg")}
+  .cube .cf2{background-image:url("3d-cubic-images-master/img/right.jpeg")}
+  .cube .cf3{background-image:url("3d-cubic-images-master/img/left.jpg")}
+  .cube .cf4{background-image:url("3d-cubic-images-master/img/lower.jpeg")}
+  .cube .cf5{background-image:url("3d-cubic-images-master/img/top.jpg")}
+  .cube .cf6{background-image:url("3d-cubic-images-master/img/after.jpeg")}
+  @keyframes cubeSpin{
+    from{transform:rotateX(-18deg) rotateY(-28deg)}
+    to{transform:rotateX(-18deg) rotateY(332deg)}
+  }
+
+  /* mock cover for json dataset */
+  .json-media{
+    background:
+      repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 26px),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 26px),
+      radial-gradient(80% 90% at 22% 0%,rgba(34,211,238,.24),transparent 62%),
+      radial-gradient(80% 90% at 92% 100%,rgba(124,92,255,.3),transparent 62%),
+      #080911;
+  }
+  .json-card{
+    position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);
+    display:flex;flex-direction:column;align-items:center;gap:7px;
+    width:min(60%,240px);padding:16px 14px;border-radius:14px;
+    border:1px dashed rgba(255,255,255,.22);
+    background:rgba(8,10,18,.72);
+    box-shadow:0 24px 44px -24px rgba(0,0,0,.95);
+    transition:transform .6s var(--ease),border-color .4s;
+  }
+  .card:hover .json-card{transform:translate(-50%,-50%) scale(1.04);border-color:rgba(34,211,238,.5)}
+  .json-card b{
+    font-family:var(--mono);font-size:26px;line-height:1;letter-spacing:-.06em;
+    background:linear-gradient(120deg,#fff,#8fe3f5);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .json-card > span{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;
+    color:#8d95ae;text-transform:uppercase;text-align:center;
+  }
+  .json-card em{
+    display:inline-flex;align-items:center;gap:6px;margin-top:3px;padding:4px 10px;
+    border-radius:999px;border:1px solid rgba(34,211,238,.4);
+    background:rgba(34,211,238,.12);
+    font-style:normal;font-size:10px;color:#a8eeff;
+  }
+  .json-card em svg{width:11px;height:11px}
+
+  /* wide resource card */
+  @media (min-width:761px){
+    .card.wide{
+      grid-column:1/-1;
+      display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+      align-items:stretch;
+    }
+    .card.wide .card-media{aspect-ratio:auto;min-height:236px;height:100%}
+    .card.wide .card-media img{object-position:center}
+    .card.wide .card-body{padding:clamp(22px,3vw,34px)}
+    .card.wide h3{font-size:clamp(20px,2vw,24px)}
+    .card.wide p{max-width:46ch}
+  }
+
+  /* featured (framed screenshot) */
+  .card.feature .card-media{
+    display:flex;align-items:center;justify-content:center;
+    padding:18px;
+    background:
+      radial-gradient(80% 80% at 12% 0%,rgba(34,211,238,.18),transparent 62%),
+      radial-gradient(80% 80% at 92% 100%,rgba(124,92,255,.24),transparent 62%),
+      #080911;
+  }
+  .card.feature .card-media img{
+    position:static;inset:auto;
+    width:auto;height:auto;max-width:100%;max-height:100%;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 26px 54px -26px rgba(0,0,0,.95);
+    filter:saturate(1) contrast(1.02) brightness(.98);
+  }
+  .card.feature .card-media::after{
+    background:linear-gradient(180deg,rgba(6,7,13,.22),transparent 34%,transparent 72%,rgba(6,7,13,.36));
+  }
+  .card.feature .card-media .tag{left:18px;top:18px}
+  .card.feature .tag i{background:#ffd166;box-shadow:0 0 8px #ffd166}
+
+  /* ---------- about ---------- */
+  .about{
+    position:relative;z-index:2;
+    padding:clamp(50px,8vh,90px) 0 clamp(60px,9vh,100px);
+  }
+  .about-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;
+    gap:clamp(28px,5vw,64px);align-items:center;
+    padding:clamp(26px,4vw,44px);
+    border:1px solid var(--line);border-radius:26px;
+    background:
+      radial-gradient(90% 130% at 0% 0%,rgba(124,92,255,.14),transparent 55%),
+      rgba(255,255,255,.022);
+    overflow:hidden;
+  }
+  .about h2{
+    margin:0 0 14px;font-size:clamp(23px,2.6vw,31px);
+    font-weight:700;letter-spacing:-.025em;line-height:1.3;
+  }
+  .about p{margin:0;font-size:13.8px;line-height:1.9;color:#98a0b8;max-width:46ch}
+  .about .chips{margin-top:20px}
+
+  .tree{
+    margin:0;padding:18px 20px;overflow-x:auto;
+    display:grid;grid-template-columns:auto auto 1fr;
+    gap:0 12px;align-items:baseline;
+    font-family:var(--mono);font-size:11.5px;line-height:2.05;
+    color:#8d95ae;
+    border:1px solid var(--line);border-radius:16px;
+    background:rgba(6,7,13,.6);
+  }
+  .tree .root{grid-column:1/-1;padding-bottom:5px;color:#c9cfe2}
+  .tree .root b{color:#8f9ab8;font-weight:500}
+  .tree i{font-style:normal;color:#59617a}
+  .tree b{font-weight:500;color:#dfe3f5;white-space:nowrap}
+  .tree em{font-style:normal;color:#7b849e;white-space:nowrap}
+  .tree em.ext{color:#a99aff}
+  .tree .here{color:var(--c2)}
+
+  /* ---------- footer ---------- */
+  .site-foot{
+    position:relative;z-index:2;
+    display:flex;align-items:center;justify-content:space-between;
+    gap:18px;flex-wrap:wrap;
+    padding:26px clamp(18px,4vw,44px) 34px;
+    border-top:1px solid var(--line);
+    font-size:12px;color:#6c7590;
+  }
+  .site-foot .left{display:flex;align-items:center;gap:10px}
+  .site-foot .dotsep{width:3px;height:3px;border-radius:50%;background:#3c4359}
+  .site-foot a{color:#a4abc2;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+  .site-foot a:hover{color:#fff;border-bottom-color:rgba(124,92,255,.7)}
+  .foot-keys{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;filter:blur(6px)}
+  .reveal.in{
+    animation:revealIn .85s var(--ease) forwards;
+    animation-delay:var(--d,0ms);
+  }
+  @keyframes revealIn{
+    from{opacity:0;filter:blur(6px)}
+    to{opacity:1;filter:blur(0)}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1020px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-visual{display:none}
+    .lede{max-width:56ch}
+  }
+  @media (max-width:760px){
+    .nav a:not(.gh){display:none}
+    .clock{display:none}
+    .grid{grid-template-columns:1fr}
+    .about-grid{grid-template-columns:1fr}
+    .facts{gap:26px;margin-top:34px}
+    .card{transform:none}
+    .site-foot{flex-direction:column;align-items:flex-start;gap:10px}
+    .sec-head{align-items:flex-start}
+  }
+  @media (max-width:420px){
+    .brand-txt em{display:none}
+    .btn{padding:12px 18px;font-size:13px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{
+      animation-duration:.001ms!important;
+      animation-iteration-count:1!important;
+      transition-duration:.001ms!important;
+    }
+    .reveal{opacity:1;filter:none}
+    h1 .line > span{animation:none}
+    .spot{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="spot" id="spot" aria-hidden="true"></div>
+
+<header class="site-head" id="head">
+  <a class="brand" href="./" aria-label="返回首页">
+    <span class="mark">N</span>
+    <span class="brand-txt"><strong>nyy-2017</strong><em>PROJECT HUB</em></span>
+  </a>
+  <nav class="nav" aria-label="主导航">
+    <a href="#projects">项目</a>
+    <a href="#about">关于</a>
+    <a class="gh" href="https://github.com/nyy-2017" target="_blank" rel="noopener noreferrer">
+      GitHub
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+    </a>
+  </nav>
+  <div class="clock" aria-hidden="true"><i class="dot"></i><span id="clock">--:--:--</span></div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="pill"><span class="pulse"></span>07 个入口 · 在线体验 / 源码仓库</p>
+        <h1>
+          <span class="line"><span>把每个 Demo</span></span>
+          <span class="line"><span>变成可访问的<em>坐标</em></span></span>
+        </h1>
+        <p class="lede">空管语音交换、地图可视化、图像合成、拓扑组态、CSS 3D……这里是我的前端实验收容所。能静态托管的直接点开体验，前后端一体的去 GitHub 跑。</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">
+            浏览项目
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+          </a>
+          <a class="btn ghost" href="https://github.com/nyy-2017" target="_blank" rel="noopener noreferrer">
+            源码仓库
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <ul class="facts">
+          <li><b>07</b><span>项目入口</span></li>
+          <li><b>24</b><span>技术栈</span></li>
+          <li><b>0</b><span>本页依赖</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
+        <div class="core"><b>07</b><span>PROJECTS</span></div>
+        <div class="spinner">
+          <span class="orb" style="--a:0deg"><span class="orb-i"><b>01</b>空管语音</span></span>
+          <span class="orb" style="--a:51.4deg"><span class="orb-i"><b>02</b>地铁线路</span></span>
+          <span class="orb" style="--a:102.9deg"><span class="orb-i"><b>03</b>立体相册</span></span>
+          <span class="orb" style="--a:154.3deg"><span class="orb-i"><b>04</b>组态编辑</span></span>
+          <span class="orb" style="--a:205.7deg"><span class="orb-i"><b>05</b>扇形覆盖</span></span>
+          <span class="orb" style="--a:257.1deg"><span class="orb-i"><b>06</b>海报合成</span></span>
+          <span class="orb" style="--a:308.6deg"><span class="orb-i"><b>07</b>地图数据</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true"><span></span>SCROLL</div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marquee">
+      <span>SVG 绘图</span><span>Canvas 合成</span><span>Leaflet 地图</span><span>Vue 3</span>
+      <span>CSS 3D</span><span>Ant Design Vue</span><span>jQuery</span><span>mxGraph</span>
+      <span>Express</span><span>SQLite</span><span>SSE 实时推送</span><span>手势交互</span>
+      <span>GeoJSON</span><span>响应式适配</span><span>GitHub Pages</span><span>零构建依赖</span>
+    </div>
+  </div>
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="projects" id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <p class="eyebrow">Index / 07</p>
+          <h2>项目索引</h2>
+        </div>
+        <p class="sec-desc">点击卡片会在新窗口打开在线项目或 GitHub 仓库。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd> 快速打开。</p>
+      </div>
+
+      <div class="grid">
+
+        <a class="card wide feature reveal" href="https://github.com/nyy-2017/atc-vcs" target="_blank" rel="noopener noreferrer" data-key="1">
+          <div class="card-media">
+            <img src="img/atc-vcs.png" alt="ATC-VCS 通信指挥台界面预览" decoding="async">
+            <span class="tag"><i></i>NEW · 空管语音交换</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 01 · 源码</span><kbd>1</kbd></div>
+            <h3>空管语音通信交换系统<small>ATC-VCS · 前往 GitHub 仓库</small></h3>
+            <p>面向塔台 / 进近 / 区域管制的语音交换演示系统：按住 PTT 发话、信道主备切换、席位与通话记录、告警中心一应俱全。Vue 3 + Express + SQLite 前后端一体，需在本地运行。</p>
+            <div class="chips"><span>Vue 3</span><span>Vite</span><span>Pinia</span><span>ECharts</span><span>Express</span><span>SQLite</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card wide reveal" href="china_Subway/" target="_blank" rel="noopener noreferrer" data-key="2">
+          <div class="card-media">
+            <img src="img/chinaSubway.png" alt="全国地铁线路图项目预览" decoding="async">
+            <span class="tag"><i></i>SVG · 地图</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 02</span><kbd>2</kbd></div>
+            <h3>全国地铁线路图<small>/china_Subway</small></h3>
+            <p>用 SVG 手绘全国城市地铁网络，支持拖拽平移、滚轮与双指缩放，切换城市后即时重绘线路与站点。</p>
+            <div class="chips"><span>原生 JS</span><span>SVG</span><span>jQuery</span><span>svg-pan-zoom</span></div>
+            <span class="go">进入项目
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="3d-cubic-images-master/" target="_blank" rel="noopener noreferrer" data-key="3">
+          <div class="card-media cube-media">
+            <div class="scene">
+              <div class="cube">
+                <i class="cf1"></i><i class="cf2"></i><i class="cf3"></i>
+                <i class="cf4"></i><i class="cf5"></i><i class="cf6"></i>
+              </div>
+            </div>
+            <span class="tag"><i></i>CSS 3D · 相册</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 03</span><kbd>3</kbd></div>
+            <h3>3D 立体照片墙<small>/3d-cubic-images-master</small></h3>
+            <p>六个 div 拼成一个正方体，靠 transform-style: preserve-3d 与关键帧自动翻面，整页没有一行 JavaScript。</p>
+            <div class="chips"><span>纯 CSS</span><span>3D Transform</span><span>关键帧动画</span></div>
+            <span class="go">进入项目
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="https://github.com/nyy-2017/vue3_mxGraph-admin" target="_blank" rel="noopener noreferrer" data-key="4">
+          <div class="card-media">
+            <img src="img/mxgraph.png" alt="mxGraph 组态编辑器界面预览" decoding="async">
+            <span class="tag"><i></i>mxGraph · 组态</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 04</span><kbd>4</kbd></div>
+            <h3>MX Graph 组态编辑器<small>vue3_mxGraph-admin</small></h3>
+            <p>Vue 3 + mxGraph 的物联网组态系统：拓扑绘制、设备绑定、菜单/角色/用户管理与操作日志，接口全部由浏览器内 mock 接管，演示账号 admin / admin。</p>
+            <div class="chips"><span>Vue 3</span><span>Vite</span><span>mxGraph</span><span>Ant Design Vue</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="https://github.com/nyy-2017/vue2-leaflet-semicircle" target="_blank" rel="noopener noreferrer" data-key="5">
+          <div class="card-media">
+            <img src="img/left.png" alt="Leaflet 扇形覆盖项目预览" decoding="async">
+            <span class="tag"><i></i>Leaflet · 几何</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 05</span><kbd>5</kbd></div>
+            <h3>地图扇形覆盖绘制<small>vue2-leaflet-semicircle</small></h3>
+            <p>在 Leaflet 地图上动态绘制半圆 / 扇形覆盖范围，通过起止角度与半径控制形状，支持图层与底图切换。</p>
+            <div class="chips"><span>Vue 2</span><span>Leaflet.js</span><span>OpenStreetMap</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="upload-avatar/" target="_blank" rel="noopener noreferrer" data-key="6">
+          <div class="card-media is-portrait">
+            <img src="img/upload.png" alt="图片海报生成器项目预览" decoding="async">
+            <span class="tag"><i></i>Canvas · 图像</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 06</span><kbd>6</kbd></div>
+            <h3>图片海报生成器<small>/upload-avatar</small></h3>
+            <p>本地选图后用触摸手势平移、缩放，叠加三种海报模板，Canvas 实时合成长图并可长按保存。</p>
+            <div class="chips"><span>Vue 2</span><span>html2canvas</span><span>移动端适配</span></div>
+            <span class="go">进入项目
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card wide reveal" href="https://github.com/nyy-2017/chinaMapJsonData" target="_blank" rel="noopener noreferrer" data-key="7">
+          <div class="card-media json-media">
+            <div class="json-card">
+              <b>{ }</b>
+              <span>GeoJSON · 省 / 市 / 县</span>
+              <em>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+                chinaMapJsonData 仓库
+              </em>
+            </div>
+            <span class="tag"><i></i>数据 · 仓库</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">RESOURCE 07</span><kbd>7</kbd></div>
+            <h3>全国地图边界数据<small>chinaMapJsonData</small></h3>
+            <p>省市县三级地图 GeoJSON 数据集，最外层的 datas.json 就是全国边界，可直接喂给 ECharts、Leaflet 或 D3 画地图。</p>
+            <div class="chips"><span>GeoJSON</span><span>ECharts</span><span>数据资源</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-grid reveal">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>一个前端实验收容所</h2>
+          <p>每个目录都是一个独立的小项目：能静态托管的直接在线体验，前后端一体的放在 GitHub 仓库里跑。代码刻意保持最少的依赖，方便随时回看当时解决问题的思路——比如此页本身就是一份纯 HTML / CSS / JS。</p>
+          <div class="chips">
+            <span>零依赖</span><span>单文件</span><span>深色主题</span><span>响应式</span><span>可访问性</span>
+          </div>
+        </div>
+        <div class="tree">
+          <span class="root"><b>/</b> nyy-2017.github.io</span>
+          <i>├─</i><b class="here">index1.html</b><em>← 你在这里</em>
+          <i>├─</i><b>china_Subway/</b><em>全国地铁线路图</em>
+          <i>├─</i><b>3d-cubic-images-master/</b><em>3D 立体照片墙</em>
+          <i>├─</i><b>upload-avatar/</b><em>图片海报生成器</em>
+          <i>├─</i><b>atc-vcs</b><em class="ext">空管语音通信交换系统 ↗</em>
+          <i>├─</i><b>vue3_mxGraph-admin</b><em class="ext">mxGraph 组态编辑器 ↗</em>
+          <i>├─</i><b>vue2-leaflet-semicircle</b><em class="ext">地图扇形覆盖 ↗</em>
+          <i>├─</i><b>chinaMapJsonData</b><em class="ext">地图边界数据 ↗</em>
+          <i>└─</i><b>img/</b><em>项目预览图</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="left">
+    <span>© <span id="year">2026</span> nyy-2017</span>
+    <span class="dotsep"></span>
+    <a href="https://github.com/nyy-2017/nyy-2017.github.io" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+    <span class="dotsep"></span>
+    <span>纯静态托管</span>
+  </div>
+  <div class="foot-keys">
+    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>7</kbd><span>打开项目</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* ---------------- 1. particle constellation ---------------- */
+  var canvas = document.getElementById("bg");
+  var ctx = canvas.getContext("2d");
+  var W = 0, H = 0, particles = [], rafId = 0;
+  var mouse = { x: -1e5, y: -1e5 };
+  var PALETTE = ["rgba(124,92,255,", "rgba(34,211,238,", "rgba(167,139,250,"];
+
+  function seed() {
+    var target = Math.max(26, Math.min(92, Math.round((W * H) / 26000)));
+    particles = [];
+    for (var i = 0; i < target; i++) {
+      particles.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.26,
+        vy: (Math.random() - 0.5) * 0.26,
+        r: Math.random() * 1.5 + 0.6,
+        c: PALETTE[(Math.random() * PALETTE.length) | 0],
+        a: Math.random() * 0.45 + 0.22
+      });
+    }
+  }
+
+  function resize() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+    if (reduceMotion) render(true);
+  }
+
+  function render(staticFrame) {
+    ctx.clearRect(0, 0, W, H);
+
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+
+      if (!staticFrame) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -24) p.x = W + 24;
+        if (p.x > W + 24) p.x = -24;
+        if (p.y < -24) p.y = H + 24;
+        if (p.y > H + 24) p.y = -24;
+
+        var dx = p.x - mouse.x, dy = p.y - mouse.y;
+        var d2 = dx * dx + dy * dy;
+        if (d2 < 24000 && d2 > 0.5) {
+          var force = (1 - d2 / 24000) * 0.6;
+          var len = Math.sqrt(d2);
+          p.x += (dx / len) * force;
+          p.y += (dy / len) * force;
+        }
+      }
+
+      ctx.beginPath();
+      ctx.fillStyle = p.c + p.a + ")";
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    for (var m = 0; m < particles.length; m++) {
+      for (var n = m + 1; n < particles.length; n++) {
+        var a = particles[m], b = particles[n];
+        var lx = a.x - b.x, ly = a.y - b.y;
+        var dist2 = lx * lx + ly * ly;
+        if (dist2 < 17000) {
+          ctx.strokeStyle = "rgba(139,130,255," + ((1 - dist2 / 17000) * 0.22).toFixed(3) + ")";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    if (!staticFrame) {
+      for (var k = 0; k < particles.length; k++) {
+        var q = particles[k];
+        var mx = q.x - mouse.x, my = q.y - mouse.y;
+        var md = mx * mx + my * my;
+        if (md < 30000) {
+          ctx.strokeStyle = "rgba(34,211,238," + ((1 - md / 30000) * 0.3).toFixed(3) + ")";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(q.x, q.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+      rafId = window.requestAnimationFrame(function () { render(false); });
+    }
+  }
+
+  window.addEventListener("resize", resize);
+  window.addEventListener("pointermove", function (e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  }, { passive: true });
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      window.cancelAnimationFrame(rafId);
+    } else if (!reduceMotion) {
+      rafId = window.requestAnimationFrame(function () { render(false); });
+    }
+  });
+
+  resize();
+  if (!reduceMotion) render(false);
+
+  /* ---------------- 2. cursor spotlight ---------------- */
+  var spot = document.getElementById("spot");
+  if (canHover && !reduceMotion) {
+    var spotX = window.innerWidth / 2, spotY = window.innerHeight * 0.32;
+    window.addEventListener("pointermove", function (e) {
+      spotX = e.clientX;
+      spotY = e.clientY;
+      spot.style.transform = "translate3d(" + (spotX - 300) + "px," + (spotY - 300) + "px,0)";
+    }, { passive: true });
+    spot.style.transform = "translate3d(" + (spotX - 300) + "px," + (spotY - 300) + "px,0)";
+  } else {
+    spot.style.display = "none";
+  }
+
+  /* ---------------- 3. header + scroll progress ---------------- */
+  var head = document.getElementById("head");
+  var progress = document.getElementById("progress");
+
+  function onScroll() {
+    var y = window.pageYOffset || document.documentElement.scrollTop;
+    head.classList.toggle("scrolled", y > 24);
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = "scaleX(" + (max > 0 ? Math.min(y / max, 1) : 0) + ")";
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------------- 4. reveal on scroll ---------------- */
+  var revealNodes = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduceMotion) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var delay = (Number(el.dataset.delay) || 0);
+        el.style.setProperty("--d", delay + "ms");
+        el.classList.add("in");
+        io.unobserve(el);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    revealNodes.forEach(function (el, i) {
+      el.dataset.delay = (i % 2) * 80;
+      io.observe(el);
+    });
+  } else {
+    revealNodes.forEach(function (el) { el.classList.add("in"); });
+  }
+
+  /* ---------------- 5. card 3D tilt + glare ---------------- */
+  if (canHover && !reduceMotion) {
+    Array.prototype.forEach.call(document.querySelectorAll(".card"), function (card) {
+      card.addEventListener("pointermove", function (e) {
+        var rect = card.getBoundingClientRect();
+        var px = (e.clientX - rect.left) / rect.width;
+        var py = (e.clientY - rect.top) / rect.height;
+        card.style.setProperty("--rx", ((0.5 - py) * 5.5).toFixed(2) + "deg");
+        card.style.setProperty("--ry", ((px - 0.5) * 5.5).toFixed(2) + "deg");
+        card.style.setProperty("--mx", (px * 100).toFixed(1) + "%");
+        card.style.setProperty("--my", (py * 100).toFixed(1) + "%");
+      });
+      card.addEventListener("pointerleave", function () {
+        card.style.setProperty("--rx", "0deg");
+        card.style.setProperty("--ry", "0deg");
+      });
+    });
+  }
+
+  /* ---------------- 6. clock ---------------- */
+  var clock = document.getElementById("clock");
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function tick() {
+    var d = new Date();
+    clock.textContent = pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+  }
+  tick();
+  window.setInterval(tick, 1000);
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------------- 7. keyboard shortcuts ---------------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+    if (e.key >= "1" && e.key <= "7") {
+      var card = document.querySelector('.card[data-key="' + e.key + '"]');
+      if (card) {
+        e.preventDefault();
+        window.open(card.href, "_blank", "noopener");
+      }
+    }
+    if (e.key === "g" || e.key === "G") {
+      window.open("https://github.com/nyy-2017", "_blank", "noopener");
+    }
+  });
+
+  /* ---------------- 8. seamless marquee ---------------- */
+  var track = document.getElementById("marquee");
+  if (track && !reduceMotion) {
+    track.innerHTML += track.innerHTML;
+  }
+})();
+</script>
+</body>
+</html>

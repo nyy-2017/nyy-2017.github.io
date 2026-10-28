@@ -4,11 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#06070d">
-<meta name="description" content="nyy-2017 的项目索引：空管语音通信交换系统 ATC-VCS、全国地铁线路图、CSS 3D 照片墙、mxGraph 组态编辑器、Leaflet 扇形覆盖、图片海报生成器与全国地图边界数据。">
+<meta name="description" content="nyy-2017 的前端作品集：空管语音通信交换系统 ATC-VCS、mxGraph 组态编辑器、全国地铁线路图、微信小程序案例库、HTML5 拓扑图等 10 个精选项目。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="项目索引 · nyy-2017">
-<meta property="og:description" content="七个前端项目：从空管语音交换、地图可视化到 mxGraph 组态编辑器。">
-<title>项目索引 · nyy-2017</title>
+<meta property="og:title" content="nyy-2017 · 前端作品集">
+<meta property="og:description" content="从 69 个开源仓库里挑出的 10 个项目：语音交换、图形组态、地图可视化与小程序。">
+<meta property="og:image" content="https://nyy-2017.github.io/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="nyy-2017 前端作品集：把想法写成能跑起来的东西">
+<meta property="og:url" content="https://nyy-2017.github.io/">
+<meta property="og:site_name" content="nyy-2017">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nyy-2017.github.io/img/og-cover.jpg">
+<title>nyy-2017 · 前端作品集</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M20 44V20l24 24V20' fill='none' stroke='%23070710' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
   /* ---------- tokens ---------- */
@@ -741,6 +749,98 @@
     h1 .line > span{animation:none}
     .spot{display:none}
   }
+
+  /* ============ index2 · portfolio layout ============ */
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:1180px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+
+  @media (min-width:1181px){
+    .card-body{padding:18px 20px 20px;gap:10px}
+    .card .chips span{font-size:10px;padding:2px 8px}
+  }
+
+  .more{display:flex;justify-content:center;margin-top:clamp(28px,4vh,46px)}
+
+  .about .links{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px}
+  .about .links a{
+    font-size:12.5px;color:#c3c9dd;padding-bottom:2px;
+    border-bottom:1px solid rgba(255,255,255,.16);
+    transition:color .3s,border-color .3s;
+  }
+  .about .links a:hover{color:#fff;border-bottom-color:var(--c1)}
+
+  /* mock · 小程序案例库 */
+  .mock-wx-media{
+    background:
+      radial-gradient(110% 100% at 8% 0%,rgba(7,193,96,.22),transparent 62%),
+      radial-gradient(100% 100% at 100% 100%,rgba(124,92,255,.22),transparent 62%),
+      #080911;
+  }
+  .mock-wx{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:20px 18px;align-content:center}
+  .mock-wx i{
+    position:relative;display:block;aspect-ratio:9/15;border-radius:7px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);
+    box-shadow:0 12px 24px -14px rgba(0,0,0,.9);
+  }
+  .mock-wx i::before{
+    content:"";position:absolute;left:0;right:0;top:0;height:38%;
+    background:linear-gradient(135deg,rgba(7,193,96,.75),rgba(34,211,238,.3));
+  }
+  .mock-wx i::after{
+    content:"";position:absolute;left:14%;right:14%;bottom:14%;height:4px;border-radius:9px;
+    background:rgba(255,255,255,.16);
+    box-shadow:0 -8px 0 rgba(255,255,255,.1),0 -16px 0 rgba(255,255,255,.07);
+  }
+
+  /* mock · 反编译终端 */
+  .mock-term-media{background:radial-gradient(120% 110% at 0% 0%,rgba(39,224,161,.16),transparent 60%),#070a10}
+  .mock-term{position:absolute;inset:0;padding:15px 17px;font-family:var(--mono);font-size:10px;line-height:1.9;color:#8ee7c0}
+  .mock-term .bar{display:flex;gap:5px;margin-bottom:9px}
+  .mock-term .bar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18)}
+  .mock-term p{margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mock-term .dim{color:#5d6b7d}
+  .mock-term .acc{color:#b8a2ff}
+  .mock-term .ok{color:#49e6a5}
+
+  /* mock · 拓扑图 */
+  .mock-topo-media{
+    background:
+      repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 22px),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 22px),
+      radial-gradient(90% 90% at 25% 12%,rgba(34,211,238,.16),transparent 60%),
+      radial-gradient(90% 90% at 82% 88%,rgba(124,92,255,.24),transparent 60%),
+      #080911;
+  }
+  .mock-topo{position:absolute;inset:0}
+  .mock-topo svg{width:100%;height:100%}
+
+  /* mock · 分片上传 */
+  .mock-chunk-media{
+    background:
+      radial-gradient(110% 100% at 10% 0%,rgba(124,92,255,.24),transparent 62%),
+      radial-gradient(100% 100% at 90% 100%,rgba(34,211,238,.16),transparent 60%),
+      #080911;
+  }
+  .mock-chunk{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:20px}
+  .mock-chunk .row{display:flex;gap:6px}
+  .mock-chunk i{
+    flex:1;height:24px;border-radius:5px;
+    border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.035);
+  }
+  .mock-chunk i.done{
+    background:linear-gradient(120deg,rgba(39,224,161,.55),rgba(34,211,238,.38));
+    border-color:rgba(39,224,161,.42);
+  }
+  .mock-chunk i.live{
+    background:rgba(124,92,255,.3);border-color:rgba(124,92,255,.65);
+    animation:chunkPulse 1.4s ease-in-out infinite;
+  }
+  .mock-chunk p{margin:6px 0 0;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:#7d86a0;text-align:center}
+  @keyframes chunkPulse{
+    0%,100%{opacity:.45}
+    50%{opacity:1}
+  }
 </style>
 </head>
 <body>
@@ -754,11 +854,12 @@
 <header class="site-head" id="head">
   <a class="brand" href="./" aria-label="返回首页">
     <span class="mark">N</span>
-    <span class="brand-txt"><strong>nyy-2017</strong><em>PROJECT HUB</em></span>
+    <span class="brand-txt"><strong>nyy-2017</strong><em>PORTFOLIO</em></span>
   </a>
   <nav class="nav" aria-label="主导航">
     <a href="#projects">项目</a>
     <a href="#about">关于</a>
+    <a href="https://blog.csdn.net/qq_41646249" target="_blank" rel="noopener noreferrer">博客</a>
     <a class="gh" href="https://github.com/nyy-2017" target="_blank" rel="noopener noreferrer">
       GitHub
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
@@ -773,26 +874,26 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="pill"><span class="pulse"></span>07 个入口 · 在线体验 / 源码仓库</p>
+        <p class="pill"><span class="pulse"></span>北京 · 前端 / 全栈 · 69 个开源仓库</p>
         <h1>
-          <span class="line"><span>把每个 Demo</span></span>
-          <span class="line"><span>变成可访问的<em>坐标</em></span></span>
+          <span class="line"><span>把想法写成</span></span>
+          <span class="line"><span>能跑起来的<em>东西</em></span></span>
         </h1>
-        <p class="lede">空管语音交换、地图可视化、图像合成、拓扑组态、CSS 3D……这里是我的前端实验收容所。能静态托管的直接点开体验，前后端一体的去 GitHub 跑。</p>
+        <p class="lede">我是 nyy-2017，在北京写前端与全栈。这些年攒下 69 个仓库，这里挑出 10 个最能代表我的：从空管语音交换系统，到地铁线路图和微信小程序。</p>
         <div class="cta">
           <a class="btn primary" href="#projects">
-            浏览项目
+            看精选项目
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
           </a>
           <a class="btn ghost" href="https://github.com/nyy-2017" target="_blank" rel="noopener noreferrer">
-            源码仓库
+            GitHub 主页
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
           </a>
         </div>
         <ul class="facts">
-          <li><b>07</b><span>项目入口</span></li>
-          <li><b>24</b><span>技术栈</span></li>
-          <li><b>0</b><span>本页依赖</span></li>
+          <li><b>69</b><span>开源仓库</span></li>
+          <li><b>10</b><span>精选项目</span></li>
+          <li><b>2019</b><span>写前端起</span></li>
         </ul>
       </div>
 
@@ -800,15 +901,18 @@
         <div class="ring r1"></div>
         <div class="ring r2"></div>
         <div class="ring r3"></div>
-        <div class="core"><b>07</b><span>PROJECTS</span></div>
+        <div class="core"><b>10</b><span>SELECTED</span></div>
         <div class="spinner">
-          <span class="orb" style="--a:0deg"><span class="orb-i"><b>01</b>空管语音</span></span>
-          <span class="orb" style="--a:51.4deg"><span class="orb-i"><b>02</b>地铁线路</span></span>
-          <span class="orb" style="--a:102.9deg"><span class="orb-i"><b>03</b>立体相册</span></span>
-          <span class="orb" style="--a:154.3deg"><span class="orb-i"><b>04</b>组态编辑</span></span>
-          <span class="orb" style="--a:205.7deg"><span class="orb-i"><b>05</b>扇形覆盖</span></span>
-          <span class="orb" style="--a:257.1deg"><span class="orb-i"><b>06</b>海报合成</span></span>
-          <span class="orb" style="--a:308.6deg"><span class="orb-i"><b>07</b>地图数据</span></span>
+          <span class="orb" style="--a:0deg"><span class="orb-i"><b>01</b>空管</span></span>
+          <span class="orb" style="--a:36deg"><span class="orb-i"><b>02</b>地铁</span></span>
+          <span class="orb" style="--a:72deg"><span class="orb-i"><b>03</b>组态</span></span>
+          <span class="orb" style="--a:108deg"><span class="orb-i"><b>04</b>3D</span></span>
+          <span class="orb" style="--a:144deg"><span class="orb-i"><b>05</b>海报</span></span>
+          <span class="orb" style="--a:180deg"><span class="orb-i"><b>06</b>扇形</span></span>
+          <span class="orb" style="--a:216deg"><span class="orb-i"><b>07</b>小程序</span></span>
+          <span class="orb" style="--a:252deg"><span class="orb-i"><b>08</b>反编译</span></span>
+          <span class="orb" style="--a:288deg"><span class="orb-i"><b>09</b>拓扑</span></span>
+          <span class="orb" style="--a:324deg"><span class="orb-i"><b>10</b>分片</span></span>
         </div>
       </div>
     </div>
@@ -818,10 +922,10 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track" id="marquee">
-      <span>SVG 绘图</span><span>Canvas 合成</span><span>Leaflet 地图</span><span>Vue 3</span>
-      <span>CSS 3D</span><span>Ant Design Vue</span><span>jQuery</span><span>mxGraph</span>
-      <span>Express</span><span>SQLite</span><span>SSE 实时推送</span><span>手势交互</span>
-      <span>GeoJSON</span><span>响应式适配</span><span>GitHub Pages</span><span>零构建依赖</span>
+      <span>Vue 3</span><span>React</span><span>TypeScript</span><span>Node.js</span>
+      <span>Express</span><span>SQLite</span><span>Vite</span><span>mxGraph</span>
+      <span>Leaflet 地图</span><span>ECharts</span><span>Canvas</span><span>SVG 绘图</span>
+      <span>Web Worker</span><span>微信小程序</span><span>WebSocket</span><span>GitHub Pages</span>
     </div>
   </div>
 
@@ -830,10 +934,10 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div>
-          <p class="eyebrow">Index / 07</p>
-          <h2>项目索引</h2>
+          <p class="eyebrow">Selected / 10</p>
+          <h2>精选项目</h2>
         </div>
-        <p class="sec-desc">点击卡片会在新窗口打开在线项目或 GitHub 仓库。也可以按数字键 <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd> 快速打开。</p>
+        <p class="sec-desc">从 69 个仓库里挑出来的 10 个，点击会在新窗口打开在线 Demo 或 GitHub 仓库。也可以按 <kbd>1</kbd>–<kbd>9</kbd> 或 <kbd>0</kbd> 直达。</p>
       </div>
 
       <div class="grid">
@@ -846,7 +950,7 @@
           </div>
           <div class="card-body">
             <div class="card-top"><span class="idx">PROJECT 01 · 源码</span><kbd>1</kbd></div>
-            <h3>空管语音通信交换系统<small>ATC-VCS · 前往 GitHub 仓库</small></h3>
+            <h3>空管语音通信交换系统<small>ATC-VCS · 全栈 · GitHub 仓库</small></h3>
             <p>面向塔台 / 进近 / 区域管制的语音交换演示系统：按住 PTT 发话、信道主备切换、席位与通话记录、告警中心一应俱全。Vue 3 + Express + SQLite 前后端一体，需在本地运行。</p>
             <div class="chips"><span>Vue 3</span><span>Vite</span><span>Pinia</span><span>ECharts</span><span>Express</span><span>SQLite</span></div>
             <span class="go">前往 GitHub
@@ -855,7 +959,7 @@
           </div>
         </a>
 
-        <a class="card wide reveal" href="china_Subway/" target="_blank" rel="noopener noreferrer" data-key="2">
+        <a class="card reveal" href="china_Subway/" target="_blank" rel="noopener noreferrer" data-key="2">
           <div class="card-media">
             <img src="img/chinaSubway.png" alt="全国地铁线路图项目预览" decoding="async">
             <span class="tag"><i></i>SVG · 地图</span>
@@ -863,10 +967,10 @@
           </div>
           <div class="card-body">
             <div class="card-top"><span class="idx">PROJECT 02</span><kbd>2</kbd></div>
-            <h3>全国地铁线路图<small>/china_Subway</small></h3>
+            <h3>全国地铁线路图<small>在线 Demo</small></h3>
             <p>用 SVG 手绘全国城市地铁网络，支持拖拽平移、滚轮与双指缩放，切换城市后即时重绘线路与站点。</p>
             <div class="chips"><span>原生 JS</span><span>SVG</span><span>jQuery</span><span>svg-pan-zoom</span></div>
-            <span class="go">进入项目
+            <span class="go">在线体验
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
           </div>
@@ -885,10 +989,10 @@
           </div>
           <div class="card-body">
             <div class="card-top"><span class="idx">PROJECT 03</span><kbd>3</kbd></div>
-            <h3>3D 立体照片墙<small>/3d-cubic-images-master</small></h3>
+            <h3>3D 立体照片墙<small>在线 Demo</small></h3>
             <p>六个 div 拼成一个正方体，靠 transform-style: preserve-3d 与关键帧自动翻面，整页没有一行 JavaScript。</p>
             <div class="chips"><span>纯 CSS</span><span>3D Transform</span><span>关键帧动画</span></div>
-            <span class="go">进入项目
+            <span class="go">在线体验
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
           </div>
@@ -936,39 +1040,119 @@
           </div>
           <div class="card-body">
             <div class="card-top"><span class="idx">PROJECT 06</span><kbd>6</kbd></div>
-            <h3>图片海报生成器<small>/upload-avatar</small></h3>
+            <h3>图片海报生成器<small>在线 Demo</small></h3>
             <p>本地选图后用触摸手势平移、缩放，叠加三种海报模板，Canvas 实时合成长图并可长按保存。</p>
             <div class="chips"><span>Vue 2</span><span>html2canvas</span><span>移动端适配</span></div>
-            <span class="go">进入项目
+            <span class="go">在线体验
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
           </div>
         </a>
 
-        <a class="card wide reveal" href="https://github.com/nyy-2017/chinaMapJsonData" target="_blank" rel="noopener noreferrer" data-key="7">
-          <div class="card-media json-media">
-            <div class="json-card">
-              <b>{ }</b>
-              <span>GeoJSON · 省 / 市 / 县</span>
-              <em>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-                chinaMapJsonData 仓库
-              </em>
+        <a class="card reveal" href="https://github.com/nyy-2017/wechat-app-demos" target="_blank" rel="noopener noreferrer" data-key="7">
+          <div class="card-media mock-wx-media">
+            <div class="mock-wx">
+              <i></i><i></i><i></i><i></i><i></i>
             </div>
-            <span class="tag"><i></i>数据 · 仓库</span>
+            <span class="tag"><i></i>小程序 · 合集</span>
             <span class="glare"></span>
           </div>
           <div class="card-body">
-            <div class="card-top"><span class="idx">RESOURCE 07</span><kbd>7</kbd></div>
-            <h3>全国地图边界数据<small>chinaMapJsonData</small></h3>
-            <p>省市县三级地图 GeoJSON 数据集，最外层的 datas.json 就是全国边界，可直接喂给 ECharts、Leaflet 或 D3 画地图。</p>
-            <div class="chips"><span>GeoJSON</span><span>ECharts</span><span>数据资源</span></div>
+            <div class="card-top"><span class="idx">PROJECT 07 · 15 ★</span><kbd>7</kbd></div>
+            <h3>微信小程序案例库<small>120+ 个源码合集</small></h3>
+            <p>覆盖商城、工具、海报、答题等场景的 120 多个小程序源码，按功能分类整理，改改就能跑。</p>
+            <div class="chips"><span>微信小程序</span><span>源码合集</span><span>15 Stars</span></div>
             <span class="go">前往 GitHub
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </span>
           </div>
         </a>
 
+        <a class="card reveal" href="https://github.com/nyy-2017/wxapp-unpacker" target="_blank" rel="noopener noreferrer" data-key="8">
+          <div class="card-media mock-term-media">
+            <div class="mock-term">
+              <div class="bar"><i></i><i></i><i></i></div>
+              <p><span class="dim">$</span> node wuWxapkg.js app.wxapkg</p>
+              <p><span class="acc">[unpack]</span> __APP__.wxapkg</p>
+              <p><span class="acc">[sub]</span> packageA · packageB</p>
+              <p><span class="ok">[done]</span> 还原 412 个文件</p>
+            </div>
+            <span class="tag"><i></i>逆向 · 工具</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 08 · 10 ★</span><kbd>8</kbd></div>
+            <h3>小程序反编译工具<small>wxapp-unpacker</small></h3>
+            <p>一键解包 .wxapkg，支持分包还原与代码美化，把线上小程序还原成可读的目录结构。</p>
+            <div class="chips"><span>Node.js</span><span>逆向</span><span>10 Stars</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="https://github.com/nyy-2017/vue_topo" target="_blank" rel="noopener noreferrer" data-key="9">
+          <div class="card-media mock-topo-media">
+            <div class="mock-topo">
+              <svg viewBox="0 0 340 210" preserveAspectRatio="none" aria-hidden="true">
+                <g stroke="rgba(140,150,210,.45)" stroke-width="1.2" fill="none">
+                  <path d="M70 55 L170 55 L170 105 L270 105"/>
+                  <path d="M70 55 L70 155 L170 155 L170 105"/>
+                  <path d="M170 105 L270 170"/>
+                  <path d="M70 155 L270 155"/>
+                </g>
+                <rect x="42" y="128" width="252" height="64" fill="rgba(124,92,255,.08)" stroke="rgba(124,92,255,.55)" stroke-width="1.2" stroke-dasharray="5 4"/>
+                <g fill="#0b0f1a" stroke="#7c5cff" stroke-width="1.6">
+                  <circle cx="70" cy="55" r="9"/><circle cx="170" cy="105" r="9"/><circle cx="270" cy="105" r="9"/>
+                </g>
+                <g fill="#0b0f1a" stroke="#22d3ee" stroke-width="1.6">
+                  <circle cx="70" cy="155" r="9"/><circle cx="270" cy="170" r="9"/><circle cx="170" cy="155" r="7"/>
+                </g>
+              </svg>
+            </div>
+            <span class="tag"><i></i>SVG · 拓扑</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 09 · 5 ★</span><kbd>9</kbd></div>
+            <h3>HTML5 拓扑图编辑器<small>vue_topo</small></h3>
+            <p>jQuery + SVG 实现的拓扑编辑器：拖拽、缩放、连线、框选、导入导出与多布局切换。</p>
+            <div class="chips"><span>SVG</span><span>jQuery</span><span>拓扑</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a class="card reveal" href="https://github.com/nyy-2017/file-web-worker" target="_blank" rel="noopener noreferrer" data-key="0">
+          <div class="card-media mock-chunk-media">
+            <div class="mock-chunk">
+              <div class="row"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="live"></i></div>
+              <div class="row"><i class="done"></i><i class="done"></i><i class="live"></i><i></i><i></i><i></i></div>
+              <div class="row"><i class="live"></i><i></i><i></i><i></i><i></i><i></i></div>
+              <p>10 MB / 片 · 6 线程并发 · 断点续传</p>
+            </div>
+            <span class="tag"><i></i>Web Worker · 性能</span>
+            <span class="glare"></span>
+          </div>
+          <div class="card-body">
+            <div class="card-top"><span class="idx">PROJECT 10</span><kbd>0</kbd></div>
+            <h3>大文件分片上传<small>file-web-worker</small></h3>
+            <p>超过 10MB 自动分片，每片 10MB；Web Worker 池化并发上传，最多 6 条线程同时干活。</p>
+            <div class="chips"><span>Web Worker</span><span>分片上传</span><span>线程池</span></div>
+            <span class="go">前往 GitHub
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="more reveal">
+        <a class="btn ghost" href="https://github.com/nyy-2017?tab=repositories" target="_blank" rel="noopener noreferrer">
+          查看全部 69 个仓库
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -979,23 +1163,24 @@
       <div class="about-grid reveal">
         <div>
           <p class="eyebrow">About</p>
-          <h2>一个前端实验收容所</h2>
-          <p>每个目录都是一个独立的小项目：能静态托管的直接在线体验，前后端一体的放在 GitHub 仓库里跑。代码刻意保持最少的依赖，方便随时回看当时解决问题的思路——比如此页本身就是一份纯 HTML / CSS / JS。</p>
+          <h2>写能跑起来的东西</h2>
+          <p>白天写业务，晚上把这些想法落成 Demo。地图、拓扑、语音、小程序都做过一轮——踩过的坑都留在仓库里，也写在 CSDN 的博客上。代码刻意保持最少的依赖，方便随时回看当时解决问题的思路。</p>
           <div class="chips">
-            <span>零依赖</span><span>单文件</span><span>深色主题</span><span>响应式</span><span>可访问性</span>
+            <span>前端</span><span>全栈</span><span>数据可视化</span><span>小程序</span><span>性能优化</span>
+          </div>
+          <div class="links">
+            <a href="https://github.com/nyy-2017" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a href="https://blog.csdn.net/qq_41646249" target="_blank" rel="noopener noreferrer">CSDN 博客 ↗</a>
+            <a href="index1.html" target="_blank" rel="noopener noreferrer">项目索引 ↗</a>
           </div>
         </div>
         <div class="tree">
-          <span class="root"><b>/</b> nyy-2017.github.io</span>
-          <i>├─</i><b class="here">index.html</b><em>← 你在这里</em>
-          <i>├─</i><b>china_Subway/</b><em>全国地铁线路图</em>
-          <i>├─</i><b>3d-cubic-images-master/</b><em>3D 立体照片墙</em>
-          <i>├─</i><b>upload-avatar/</b><em>图片海报生成器</em>
-          <i>├─</i><b>atc-vcs</b><em class="ext">空管语音通信交换系统 ↗</em>
-          <i>├─</i><b>vue3_mxGraph-admin</b><em class="ext">mxGraph 组态编辑器 ↗</em>
-          <i>├─</i><b>vue2-leaflet-semicircle</b><em class="ext">地图扇形覆盖 ↗</em>
-          <i>├─</i><b>chinaMapJsonData</b><em class="ext">地图边界数据 ↗</em>
-          <i>└─</i><b>img/</b><em>项目预览图</em>
+          <span class="root"><b>/</b> 技能栈 <em>2019 — 2026</em></span>
+          <i>├─</i><b>前端</b><em>Vue 3 · React · TypeScript · Vite</em>
+          <i>├─</i><b>可视化</b><em>SVG · Canvas · mxGraph · Leaflet</em>
+          <i>├─</i><b>服务端</b><em>Node.js · Express · SQLite · SSE</em>
+          <i>├─</i><b>小程序</b><em>原生小程序 · 海报合成 · 反编译</em>
+          <i>└─</i><b>其他</b><em>Git · Nginx · 性能优化</em>
         </div>
       </div>
     </div>
@@ -1007,12 +1192,14 @@
   <div class="left">
     <span>© <span id="year">2026</span> nyy-2017</span>
     <span class="dotsep"></span>
-    <a href="https://github.com/nyy-2017/nyy-2017.github.io" target="_blank" rel="noopener noreferrer">GitHub Pages</a>
+    <span>北京</span>
     <span class="dotsep"></span>
-    <span>纯静态托管</span>
+    <a href="https://github.com/nyy-2017" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <span class="dotsep"></span>
+    <a href="https://blog.csdn.net/qq_41646249" target="_blank" rel="noopener noreferrer">CSDN</a>
   </div>
   <div class="foot-keys">
-    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>7</kbd><span>打开项目</span>
+    <span>快捷键</span><kbd>1</kbd><span>–</span><kbd>9</kbd><span>/</span><kbd>0</kbd><span>打开项目</span>
   </div>
 </footer>
 
@@ -1181,7 +1368,7 @@
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     revealNodes.forEach(function (el, i) {
-      el.dataset.delay = (i % 2) * 80;
+      el.dataset.delay = (i % 3) * 80;
       io.observe(el);
     });
   } else {
@@ -1225,7 +1412,7 @@
     var tag = (e.target && e.target.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
 
-    if (e.key >= "1" && e.key <= "7") {
+    if ((e.key >= "1" && e.key <= "9") || e.key === "0") {
       var card = document.querySelector('.card[data-key="' + e.key + '"]');
       if (card) {
         e.preventDefault();
